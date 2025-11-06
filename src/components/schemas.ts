@@ -1,4 +1,5 @@
 import z from "zod";
+import { countryCodes } from "./steps/personalInfo/constants";
 
 // Personal Info Schema
 export const personalInfoSchema = z.object({
@@ -27,6 +28,17 @@ export const personalInfoSchema = z.object({
     phone: z.string()
         .regex(/^[0-9]+$/, "Only digits allowed")
         .nonempty("Phone number is required"),
+}).superRefine((data, ctx) => {
+    const entry = countryCodes.find(c => c.code === data.phCode);
+    if (entry && data.phone) {
+        if (data.phone.length !== entry.digits) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                path: ["phone"],
+                message: `Phone must be ${entry.digits} digits for selected code`,
+            });
+        }
+    }
 });
 
 // Family & Financial Info Schema
