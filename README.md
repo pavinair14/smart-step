@@ -1,73 +1,153 @@
-# React + TypeScript + Vite
+---
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🧭 Smart Step — Multi‑Step Form (React + TypeScript)
 
-Currently, two official plugins are available:
+A progressive, accessible multi-step form built with React, TypeScript, and Vite. It features schema-driven validation (Zod), seamless step navigation, and AI-assisted writing for text areas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🔗 Preview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Run locally (see setup below) and open the printed localhost URL from Vite (typically http://localhost:5173 or a nearby port).
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Framework/Build: Vite + React 19 + TypeScript
+- Forms: react-hook-form
+- Validation: Zod
+- Styling: Tailwind CSS + Shadcn UI
+- Animations: Framer Motion
+- Icons: lucide-react
+- Testing: Jest + React Testing Library + jest-dom
+- AI Suggestion: OpenAI client
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## ✨ Features
+
+- ✅ Multi-step flow with per-step validation
+- ✅ Instant validation feedback (onChange)
+- ✅ AI “Help me write” suggestions for descriptions
+- ✅ Persisted, predictable validation using Zod
+- ✅ Accessible dialogs, ARIA labels, and keyboard support
+- ✅ Comprehensive unit tests
+
+---
+
+## 📦 Project Structure
+
+```bash
+src/
+  components/
+    MultiStepForm.tsx
+    Stepper.tsx
+    shared/
+      Field.tsx
+    steps/
+      personalInfo/
+      familyfinancialInfo/
+      situationDescription/
+  services/
+    aiClient.ts
+    mockSubmitAPI.ts
+  lib/
+    utils.ts
+```
+    
+## ⚙️ Installation & Setup
+
+### Prerequisites
+- Node.js 18+ (recommended)
+- npm (or yarn/pnpm if you prefer)
+
+### Clone & Install
+
+git clone https://github.com/pavinair14/smart-step.git
+cd smart-step
+npm install
+
+
+### Environment Variables (optional for AI)
+If you want AI suggestions to use a real API key at runtime, create `.env` in the project root:
+
+```
+VITE_OPENAI_API_KEY=sk-your-key
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Note: In tests, the AI client is mocked, so no real network calls are made.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Start the Dev Server
+```bash
+npm run dev
 ```
+Open the printed URL (e.g., http://localhost:5173/). Vite will choose another port if 5173 is busy.
+
+### Run Tests
+```bash
+npm test            # run full suite
+npm run test:watch  # watch mode
+npm run test:coverage
+```
+Coverage report will be generated under `coverage/lcov-report/index.html`.
+
+### Lint & Type Check
+```bash
+npm run lint
+```
+
+### Build for Production
+```bash
+npm run build
+```
+The build output goes to `dist/`.
+
+---
+
+## 🧪 Testing Strategy
+
+- Jest + React Testing Library for unit and interaction tests
+- jsdom test environment
+- AI client is mocked for deterministic tests
+
+Common scripts:
+```bash
+npm test
+npm run test:watch
+npm run test:coverage
+```
+
+---
+
+## 🔒 Environment
+
+At runtime, the OpenAI client reads `import.meta.env.VITE_OPENAI_API_KEY` if available. During tests, a local mock is used, so no real calls are performed.
+
+---
+
+## ♿ Accessibility
+
+- Inputs wired with accessible labels
+- Dialogs with appropriate roles, ARIA, and focus management
+- Reduced motion respected where applicable
+
+---
+
+## 📈 Performance Notes
+
+- Memoized presentational components (`Stepper`, `Field`)
+- `useCallback` for stable handlers; `useMemo` for derived view models
+- Narrow `watch` subscriptions to reduce re-renders
+
+---
+
+## 🤝 Contributing
+
+PRs and issues are welcome. Please include/adjust tests when changing behavior.
+
+---
+
+## 📄 License
+
+MIT
