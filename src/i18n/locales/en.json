@@ -50,9 +50,10 @@
         "submit": "Submit",
         "ok": "OK",
         "getSuggestion": "Help me write",
-        "useSuggestion": "Use Suggestion",
+        "useSuggestion": "Accept",
         "cancel": "Cancel",
-        "clearForm": "Clear form"
+        "clearForm": "Clear form",
+        "rewrite": "Rewrite"
     },
     "messages": {
         "allFieldsRequired": "All fields must be filled to proceed",

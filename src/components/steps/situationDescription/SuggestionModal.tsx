@@ -72,7 +72,7 @@ export const SuggestionModal: React.FC<SuggestionModalProps> = (props) => {
                                 }`}
                             size={16}
                         />
-                        {t('buttons.rewriteSuggestion')}
+                        {t('buttons.rewrite')}
                     </Button>
                     <Button onClick={handleAccept} disabled={loading}>
                         {t('buttons.useSuggestion')}
