@@ -11,8 +11,8 @@ import { mockSubmitAPI } from "@/services/mockSubmitAPI";
 import { AlertCircle, X } from "lucide-react";
 import { useDebouncedEffect } from "../hooks/useDebouncedEffect";
 import { LoaderCircle } from "./shared/Loader";
+import PersonalInfo from "./steps/personalInfo";
 
-const PersonalInfo = lazy(() => import("./steps/personalInfo"));
 const FamilyFinancialInfo = lazy(() => import("./steps/familyfinancialInfo"));
 const SituationDescription = lazy(() => import("./steps/situationDescription"));
 

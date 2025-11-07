@@ -11,7 +11,7 @@ import type { SuggestionModalProps } from "./types";
 import { Sparkle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export const SuggestionModal: React.FC<SuggestionModalProps> = ({
+const SuggestionModal: React.FC<SuggestionModalProps> = ({
     open,
     setOpen,
     loading,
@@ -92,3 +92,5 @@ export const SuggestionModal: React.FC<SuggestionModalProps> = ({
         </Dialog>
     );
 };
+
+export default SuggestionModal;

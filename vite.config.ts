@@ -6,22 +6,22 @@ import path from "path";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
+  esbuild: { drop: ["console", "debugger"] },
+  resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
   build: {
+    minify: 'esbuild',
     rollupOptions: {
       output: {
+        compact: true,
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
           'form-vendor': ['react-hook-form', 'zod', '@hookform/resolvers/zod'],
-          'ui-vendor': ['framer-motion', 'lucide-react', '@radix-ui/react-dialog', '@radix-ui/react-progress', '@radix-ui/react-label', '@radix-ui/react-slot'],
+          'ui-vendor': ['framer-motion', '@radix-ui/react-dialog', '@radix-ui/react-progress', '@radix-ui/react-label'],
           'zustand-vendor': ['zustand'],
         },
       },
     },
+    modulePreload: { polyfill: true },
     chunkSizeWarningLimit: 600,
   },
-})
+});

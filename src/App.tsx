@@ -9,7 +9,7 @@ function App() {
           Skip to main content
         </a>
 
-        <h1 className="pb-4 z-10 text-violet-900 font-medium" role="banner">
+        <h1 className="pb-4 z-10 text-violet-900 font-medium">
           Smart Step
         </h1>
 

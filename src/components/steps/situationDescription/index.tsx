@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { getAISuggestion } from "@/services/aiClient";
 import { useFormContext } from "react-hook-form";
 import { descriptionFields } from "./constants";
-import { SuggestionModal } from "./SuggestionModal";
+import SuggestionModal from "./SuggestionModal";
 import { Field } from "@/components/shared/Field";
 import { Sparkle } from "lucide-react";
 
