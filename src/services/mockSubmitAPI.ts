@@ -1,7 +1,5 @@
-export const mockSubmitAPI = (data: any): Promise<{ message: string }> => {
+export const mockSubmitAPI = (): Promise<{ message: string }> => {
     return new Promise((resolve, reject) => {
-        console.log("Submitting data:", data);
-
         // In test environments, succeed deterministically
         if (process.env.NODE_ENV === 'test') {
             setTimeout(() => resolve({ message: "Data submitted successfully!" }), 100);

@@ -1,4 +1,3 @@
-import React, { useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { Field } from "../../shared/Field";
 import {
@@ -7,40 +6,24 @@ import {
     currencies,
 } from "./constants";
 
-export const FamilyFinancialInfo: React.FC = () => {
+const FamilyFinancialInfo: React.FC = () => {
     const {
         register,
         formState: { errors },
     } = useFormContext();
 
-    const maritalStatusOpts = useMemo(() =>
-        maritalStatusOptions.map((m) => ({ label: m.label, value: m.value })),
-        []
-    );
-
-    const employmentStatusOpts = useMemo(() =>
-        employmentStatusOptions.map((e) => ({ label: e.label, value: e.value })),
-        []
-    );
-
-    const currencyOpts = useMemo(() =>
-        currencies.map((c) => ({ label: c.label, value: c.code })),
-        []
-    );
-
     return (
-
-        <div className="grid grid-cols-2 gap-x-12 gap-y-6">
-
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
             {/* Marital Status */}
             <Field
                 id="maritalStatus"
                 label="Marital Status"
                 as="select"
                 register={register("maritalStatus")}
-                options={maritalStatusOpts}
+                options={maritalStatusOptions}
                 error={errors.maritalStatus?.message as string | undefined}
             />
+
             {/* Dependents */}
             <Field
                 id="dependents"
@@ -57,7 +40,7 @@ export const FamilyFinancialInfo: React.FC = () => {
                 label="Employment Status"
                 as="select"
                 register={register("employmentStatus")}
-                options={employmentStatusOpts}
+                options={employmentStatusOptions}
                 error={errors.employmentStatus?.message as string | undefined}
             />
 
@@ -78,7 +61,10 @@ export const FamilyFinancialInfo: React.FC = () => {
                         label="Currency"
                         as="select"
                         register={register("currency")}
-                        options={currencyOpts}
+                        options={currencies.map((c) => ({
+                            label: c.label,
+                            value: c.code,
+                        }))}
                         error={errors.currency?.message as string | undefined}
                     />
                 </div>
@@ -93,7 +79,8 @@ export const FamilyFinancialInfo: React.FC = () => {
                     />
                 </div>
             </div>
-        </div>
-
+        </div >
     );
 };
+
+export default FamilyFinancialInfo;

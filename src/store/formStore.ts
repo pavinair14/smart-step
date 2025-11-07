@@ -1,13 +1,13 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import type { FormDraft } from '@/components/types';
-import { defaultFormValues } from '@/components/constant';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import type { FormDraft } from "@/components/types";
+import { defaultFormValues } from "@/components/constant";
 
 type FormStore = {
-    data: FormDraft;
+    formdata: FormDraft;
     activeStep: number;
     setField: <K extends keyof FormDraft>(key: K, value: FormDraft[K]) => void;
-    setBulk: (values: Partial<FormDraft>) => void;
+    setFormData: (values: Partial<FormDraft>) => void;
     setActiveStep: (step: number) => void;
     reset: () => void;
 };
@@ -15,16 +15,18 @@ type FormStore = {
 export const useFormStore = create<FormStore>()(
     persist(
         (set) => ({
-            data: defaultFormValues as FormDraft,
+            formdata: { ...defaultFormValues },
             activeStep: 0,
-            setField: (key, value) => set((s) => ({ data: { ...s.data, [key]: value } })),
-            setBulk: (values) => set((s) => ({ data: { ...s.data, ...values } })),
+            setField: (key, value) =>
+                set((state) => ({ formdata: { ...state.formdata, [key]: value } })),
+            setFormData: (values) =>
+                set((state) => ({ formdata: { ...state.formdata, ...values } })),
             setActiveStep: (step) => set({ activeStep: step }),
-            reset: () => set({ data: defaultFormValues as FormDraft, activeStep: 0 }),
+            reset: () => set({ formdata: { ...defaultFormValues }, activeStep: 0 }),
         }),
         {
-            name: 'smart-step-form',
-            partialize: (state) => ({ data: state.data }),
+            name: "smart-step-form",
+            partialize: (state) => ({ formdata: state.formdata }), // to persist only form data
         }
     )
 );

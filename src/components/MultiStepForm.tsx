@@ -1,45 +1,58 @@
-import { useCallback, useMemo, useEffect, useState } from "react";
+import { useCallback, useMemo, useState, lazy, Suspense } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { steps, defaultFormValues } from "./constant";
 import { Stepper } from "./Stepper";
-import { FamilyFinancialInfo } from "./steps/familyfinancialInfo/index";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PersonalInfo } from "./steps/personalInfo/index";
-import { SituationDescription } from "./steps/situationDescription/index";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { schemas, type FormDraft } from "./types";
 import { useFormStore } from "@/store/formStore";
 import { mockSubmitAPI } from "@/services/mockSubmitAPI";
+import { AlertCircle, X } from "lucide-react";
+import { useDebouncedEffect } from "../hooks/useDebouncedEffect";
+import { LoaderCircle } from "./shared/Loader";
+
+const PersonalInfo = lazy(() => import("./steps/personalInfo"));
+const FamilyFinancialInfo = lazy(() => import("./steps/familyfinancialInfo"));
+const SituationDescription = lazy(() => import("./steps/situationDescription"));
+
 
 export const MultiStepForm = () => {
-    const { data, activeStep, setActiveStep, setBulk, reset: resetStore } = useFormStore();
+    const { formdata, activeStep, setActiveStep, setFormData, reset: resetStore } = useFormStore();
     const [showSubmitModal, setShowSubmitModal] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
     const methods = useForm<FormDraft>({
         resolver: zodResolver(schemas[activeStep]) as any,
         mode: "onChange",
-        defaultValues: data,
+        defaultValues: formdata,
     });
 
-    // Sync react-hook-form changes to Zustand store
-    useEffect(() => {
-        const subscription = methods.watch((values) => setBulk(values as Partial<FormDraft>));
-        return () => subscription.unsubscribe();
-    }, [methods, setBulk]);
+    // Debounced formstore - prevents excessive writes
+    useDebouncedEffect(
+        (values) => setFormData(values as Partial<FormDraft>),
+        methods.watch(),
+        500
+    );
 
     const OnFormSubmit = useCallback(async () => {
-        if (activeStep < 2) {
+        if (activeStep < steps.length - 1) {
             setActiveStep(activeStep + 1);
         } else {
+            setSubmitError(null);
             try {
-                await mockSubmitAPI(data);
+                await mockSubmitAPI();
                 setShowSubmitModal(true);
             } catch (error) {
                 console.error("Form submission failed:", error);
+                const errorMessage = error instanceof Error
+                    ? error.message
+                    : "An unexpected error occurred. Please try again.";
+                setSubmitError(errorMessage);
             }
         }
-    }, [activeStep, setActiveStep]);
+    }, [activeStep, setActiveStep, formdata]);
 
+    // Handle form reset after submission
     const handleFormReset = useCallback(() => {
         setShowSubmitModal(false);
         resetStore();
@@ -47,24 +60,10 @@ export const MultiStepForm = () => {
         setActiveStep(0);
     }, [methods, resetStore, setActiveStep]);
 
+    // Handle click for back button
     const handleBackBtnClick = useCallback(() => {
         setActiveStep(activeStep - 1);
     }, [activeStep, setActiveStep]);
-
-    useEffect(() => {
-        const handleEscape = (e: KeyboardEvent) => {
-            if (e.key === 'Escape' && showSubmitModal) {
-                handleFormReset();
-            }
-        };
-        if (showSubmitModal) {
-            document.addEventListener('keydown', handleEscape);
-            // Trap focus in modal
-            const modal = document.getElementById('submit-modal');
-            modal?.focus();
-        }
-        return () => document.removeEventListener('keydown', handleEscape);
-    }, [showSubmitModal, handleFormReset]);
 
     const renderStep = useMemo(() => {
         switch (activeStep) {
@@ -87,9 +86,35 @@ export const MultiStepForm = () => {
                     <Stepper steps={steps} currentStep={activeStep} />
 
                     <p className="pb-4"><span className="text-red-500 pr-1.5">*</span>All fields must be filled to proceed</p>
+
+                    {/* Error message */}
+                    {submitError && (
+                        <div
+                            role="alert"
+                            aria-live="assertive"
+                            className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md flex items-start"
+                        >
+                            <AlertCircle className="h-5 w-5 text-red-500 mt-0.5 mr-3 shrink-0" />
+                            <div className="flex-1">
+                                <h3 className="text-sm font-medium text-red-800">Submission Failed</h3>
+                                <p className="mt-1 text-sm text-red-700">{submitError}</p>
+                            </div>
+                            <button
+                                onClick={() => setSubmitError(null)}
+                                className="ml-3 text-red-500 hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 rounded"
+                                aria-label="Dismiss error"
+                                type="button"
+                            >
+                                <X className="h-5 w-5" />
+                            </button>
+                        </div>
+                    )}
+
+
                     <div className="overflow-auto">
-                        {/* Step content */}
-                        {renderStep}
+                        <Suspense fallback={<LoaderCircle />}>
+                            {renderStep}
+                        </Suspense>
                     </div>
                 </div>
 

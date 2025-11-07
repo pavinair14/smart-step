@@ -1,82 +1,37 @@
-import '@testing-library/jest-dom';
-import { useFormStore } from '@/store/formStore';
+import "@testing-library/jest-dom";
+import { useFormStore } from "../store/formStore";
 
-// Mock import.meta.env for Vite environment variables
-Object.defineProperty(globalThis, 'import', {
-    value: {
-        meta: {
-            env: {
-                VITE_OPENAI_API_KEY: 'test-api-key',
-            },
-        },
-    },
-    configurable: true,
-});
-
-// Mock matchMedia (needed for responsive components)
-Object.defineProperty(window, 'matchMedia', {
-    writable: true,
-    value: jest.fn().mockImplementation((query: string) => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: jest.fn(),
-        removeListener: jest.fn(),
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
-    })),
-});
-
-// Mock ResizeObserver (used by some Radix components)
-global.ResizeObserver = jest.fn().mockImplementation(() => ({
-    observe: jest.fn(),
-    unobserve: jest.fn(),
-    disconnect: jest.fn(),
+// Mock the AI client
+jest.mock("@/services/aiClient", () => ({
+    getAISuggestion: jest.fn().mockResolvedValue("Mocked AI suggestion for testing"),
 }));
 
-// Suppress specific console methods during tests to reduce noise
-const originalError = console.error;
-const originalWarn = console.warn;
+// Mock Vite env 
+(globalThis as any).importMetaEnv = {
+    VITE_OPENAI_API_KEY: "test-api-key",
+};
 
-beforeAll(() => {
-    // Suppress React/Radix warnings that are expected in test environment
-    console.error = jest.fn((...args: any[]) => {
-        const message = args[0]?.toString() || '';
-        // Allow through unexpected errors, suppress known noise
-        if (
-            !message.includes('Warning: ReactDOM.render') &&
-            !message.includes('Not implemented: HTMLFormElement.prototype.requestSubmit')
-        ) {
-            originalError(...args);
-        }
-    });
+// Mock matchMedia
+window.matchMedia = window.matchMedia || (() => ({
+    matches: false,
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+})) as any;
 
-    console.warn = jest.fn((...args: any[]) => {
-        const message = args[0]?.toString() || '';
-        // Suppress Radix ARIA warnings in tests (they're dev-only)
-        if (!message.includes('Missing `Description`')) {
-            originalWarn(...args);
-        }
-    });
-});
+// Mock ResizeObserver
+global.ResizeObserver = class {
+    observe = jest.fn();
+    unobserve = jest.fn();
+    disconnect = jest.fn();
+};
 
-afterAll(() => {
-    console.error = originalError;
-    console.warn = originalWarn;
-});
-
-// Clear all storage and reset Zustand stores between tests
+// Reset Zustand + localStorage before each test
 beforeEach(() => {
-    // Clear storage - this will cause Zustand persist to re-hydrate from empty storage
     localStorage.clear();
     sessionStorage.clear();
-
-    // Reset Zustand form store to initial state
     useFormStore.getState().reset();
-});
-
-// Clear all mocks between tests
-afterEach(() => {
     jest.clearAllMocks();
 });

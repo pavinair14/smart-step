@@ -24,4 +24,5 @@ export interface FieldProps {
     as?: FormField;
     options?: Option[];
     fullWidth?: boolean;
+    className?: string;
 }
