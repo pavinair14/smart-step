@@ -143,6 +143,23 @@ h1 {
     transition: background-color 5000s ease-in-out 0s;
     box-shadow: inset 0 0 20px 20px transparent;
   }
+
+  /* Style number input spinner buttons */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  input[type="number"] {
+    position: relative;
+  }
 }
 
 
