@@ -1,5 +1,18 @@
 import type z from "zod";
-import { FamilyFinancialInfoSchema, personalInfoSchema, SituationDescriptionSchema } from "./schemas";
+import {
+    getPersonalInfoSchema,
+    getFamilyFinancialInfoSchema,
+    getSituationDescriptionSchema,
+    personalInfoSchema,
+    FamilyFinancialInfoSchema,
+    SituationDescriptionSchema
+} from "./schemas";
+
+export const getSchemas = () => [
+    getPersonalInfoSchema(),
+    getFamilyFinancialInfoSchema(),
+    getSituationDescriptionSchema()
+];
 
 export const schemas = [personalInfoSchema, FamilyFinancialInfoSchema, SituationDescriptionSchema];
 
@@ -13,6 +26,6 @@ export type FamilyFinancialInfoInput = z.input<typeof FamilyFinancialInfoSchema>
 export type FormDraft = PersonalInfoData & FamilyFinancialInfoInput & SituationDescriptionData;
 
 export type StepperType = {
-    steps: { title: string }[],
+    steps: { title: string; translationKey: string }[],
     currentStep: number
 }

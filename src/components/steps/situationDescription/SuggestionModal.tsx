@@ -1,25 +1,15 @@
 import { useCallback } from "react";
-import { Button } from "@/components/ui/button";
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogFooter,
-    DialogTitle,
-} from "@/components/ui/dialog";
+import { useTranslation } from "react-i18next";
+import { Button } from "@/components/ui/button"
+import { DialogHeader, DialogFooter, Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import type { SuggestionModalProps } from "./types";
 import { Sparkle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const SuggestionModal: React.FC<SuggestionModalProps> = ({
-    open,
-    setOpen,
-    loading,
-    suggestion,
-    setSuggestion,
-    handleRewrite,
-    handleAccept,
-}) => {
+export const SuggestionModal: React.FC<SuggestionModalProps> = (props) => {
+    const { open, setOpen, loading, suggestion, setSuggestion, handleRewrite, handleAccept } = props;
+    const { t } = useTranslation();
+
     const handleCancel = useCallback(() => {
         setOpen(false);
         setSuggestion("");
@@ -29,7 +19,7 @@ const SuggestionModal: React.FC<SuggestionModalProps> = ({
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className="max-w-md">
                 <DialogHeader>
-                    <DialogTitle>AI Suggestion</DialogTitle>
+                    <DialogTitle>{t('messages.aiSuggestion')}</DialogTitle>
                 </DialogHeader>
 
                 {/* Suggestion Content */}
@@ -37,7 +27,7 @@ const SuggestionModal: React.FC<SuggestionModalProps> = ({
                     {loading ? (
                         <div className="flex items-center justify-center h-24 text-muted-foreground">
                             <Sparkle className="animate-spin text-violet-600 mr-2" size={18} />
-                            Generating suggestion...
+                            {t('messages.loading')}
                         </div>
                     ) : (
                         <AnimatePresence mode="wait">
@@ -60,7 +50,7 @@ const SuggestionModal: React.FC<SuggestionModalProps> = ({
                                     exit={{ opacity: 0 }}
                                     className="text-muted-foreground italic text-sm"
                                 >
-                                    No suggestion yet.
+                                    {t('messages.noSuggestionYet')}
                                 </motion.p>
                             )}
                         </AnimatePresence>
@@ -70,7 +60,7 @@ const SuggestionModal: React.FC<SuggestionModalProps> = ({
                 {/* Footer buttons */}
                 <DialogFooter className="flex justify-end gap-2 pt-4">
                     <Button variant="outline" onClick={handleCancel}>
-                        Cancel
+                        {t('buttons.cancel')}
                     </Button>
                     <Button
                         variant="outline"
@@ -82,10 +72,10 @@ const SuggestionModal: React.FC<SuggestionModalProps> = ({
                                 }`}
                             size={16}
                         />
-                        Rewrite
+                        {t('buttons.rewrite')}
                     </Button>
                     <Button onClick={handleAccept} disabled={loading}>
-                        Accept
+                        {t('buttons.useSuggestion')}
                     </Button>
                 </DialogFooter>
             </DialogContent>

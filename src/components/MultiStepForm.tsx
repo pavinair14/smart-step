@@ -1,11 +1,12 @@
-import { useCallback, useMemo, useState, lazy, Suspense } from "react";
+import { useCallback, useMemo, useState, lazy, Suspense, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { steps, defaultFormValues } from "./constant";
 import { Stepper } from "./Stepper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { schemas, type FormDraft } from "./types";
+import { getSchemas, type FormDraft } from "./types";
 import { useFormStore } from "@/store/formStore";
 import { mockSubmitAPI } from "@/services/mockSubmitAPI";
 import { AlertCircle, X } from "lucide-react";
@@ -19,14 +20,22 @@ const SituationDescription = lazy(() => import("./steps/situationDescription"));
 
 export const MultiStepForm = () => {
     const { formdata, activeStep, setActiveStep, setFormData, reset: resetStore } = useFormStore();
+    const { t, i18n } = useTranslation();
     const [showSubmitModal, setShowSubmitModal] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const currentSchemas = useMemo(() => getSchemas(), [i18n.language]);
+
     const methods = useForm<FormDraft>({
-        resolver: zodResolver(schemas[activeStep]) as any,
+        resolver: zodResolver(currentSchemas[activeStep]) as any,
         mode: "onChange",
         defaultValues: formdata,
     });
+
+    useEffect(() => {
+        methods.clearErrors();
+    }, [i18n.language, activeStep, methods]);
 
     // Debounced formstore - prevents excessive writes
     useDebouncedEffect(
@@ -88,9 +97,9 @@ export const MultiStepForm = () => {
                     {/* Stepper */}
                     <Stepper steps={steps} currentStep={activeStep} />
                     <div className="flex flex-row justify-between items-center">
-                        <p className="pb-4"><span className="text-red-500 pr-1.5">*</span>All fields must be filled to proceed</p>
+                        <p className="pb-4"><span className="text-red-500 pr-1.5">*</span>{t('messages.allFieldsRequired')}</p>
 
-                        <Button type="button" variant="link" className="text-sm text-violet-900 z-10" onClick={handleFormReset}>Clear form</Button>
+                        <Button type="button" variant="link" className="text-sm text-violet-900 z-10" onClick={handleFormReset}>{t('buttons.clearForm')}</Button>
                     </div>
                     {/* Error message */}
                     {submitError && (
@@ -131,12 +140,12 @@ export const MultiStepForm = () => {
                             variant="outline"
                             onClick={handleBackBtnClick}
                         >
-                            Back
+                            {t('buttons.back')}
                         </Button>
                     )}
-                    <Button type="submit" disabled={isSubmitting}><>{isSubmitting ? <LoaderCircle hideText /> : activeStep === 2 ? "Submit" : "Next"}</></Button>
-                </div>
-            </form>
+                    <Button type="submit" disabled={isSubmitting}><>{isSubmitting ? <LoaderCircle hideText /> : activeStep === 2 ? t('buttons.submit') : t('buttons.next')}</></Button>
+                </div >
+            </form >
 
             {showSubmitModal && (
                 <div
@@ -150,14 +159,14 @@ export const MultiStepForm = () => {
                         className="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm space-y-4"
                         tabIndex={-1}
                     >
-                        <h2 id="modal-title" className="text-xl font-semibold">Form Submitted</h2>
-                        <p className="text-gray-700">Your form has been submitted successfully.</p>
+                        <h2 id="modal-title" className="text-xl font-semibold">{t('messages.formSubmitted')}</h2>
+                        <p className="text-gray-700">{t('messages.formSubmittedSuccess')}</p>
                         <div className="flex justify-end">
-                            <Button type="button" onClick={handleFormReset}>OK</Button>
+                            <Button type="button" onClick={handleFormReset}>{t('buttons.ok')}</Button>
                         </div>
                     </div>
                 </div>
             )}
-        </FormProvider>
+        </FormProvider >
     )
 }

@@ -1,3 +1,4 @@
+import '../i18n/testInit';
 import {
     personalInfoSchema,
     FamilyFinancialInfoSchema,
@@ -42,7 +43,7 @@ describe('Personal Info Schema', () => {
         const result = personalInfoSchema.safeParse(invalidData);
         expect(result.success).toBe(false);
         if (!result.success) {
-            expect(result.error.issues[0].message).toBe('Name must be at least 2 chars');
+            expect(result.error.issues[0].message).toBe('Name must be at least 2 characters');
         }
     }); it('should reject invalid email format', () => {
         const invalidData = {
@@ -87,7 +88,7 @@ describe('Personal Info Schema', () => {
         const result = personalInfoSchema.safeParse(invalidData);
         expect(result.success).toBe(false);
         if (!result.success) {
-            expect(result.error.issues[0].message).toBe('Date of birth cannot be in the future');
+            expect(result.error.issues[0].message).toBe('Date of Birth cannot be in the future');
         }
     });
 
@@ -279,7 +280,7 @@ describe('Family & Financial Info Schema', () => {
         const result = FamilyFinancialInfoSchema.safeParse(invalidData);
         expect(result.success).toBe(false);
         if (!result.success) {
-            expect(result.error.issues[0].message).toBe('Monthly income must be positive');
+            expect(result.error.issues[0].message).toBe('Monthly Income must be positive');
         }
     });
 
@@ -296,7 +297,7 @@ describe('Family & Financial Info Schema', () => {
         const result = FamilyFinancialInfoSchema.safeParse(invalidData);
         expect(result.success).toBe(false);
         if (!result.success) {
-            expect(result.error.issues[0].message).toBe('Dependents count is required');
+            expect(result.error.issues[0].message).toBe('Dependents is required');
         }
     });
 
@@ -313,7 +314,7 @@ describe('Family & Financial Info Schema', () => {
         const result = FamilyFinancialInfoSchema.safeParse(invalidData);
         expect(result.success).toBe(false);
         if (!result.success) {
-            expect(result.error.issues[0].message).toBe('Monthly income is required');
+            expect(result.error.issues[0].message).toBe('Monthly Income is required');
         }
     });
 });
@@ -340,7 +341,7 @@ describe('Situation Description Schema', () => {
         const result = SituationDescriptionSchema.safeParse(invalidData);
         expect(result.success).toBe(false);
         if (!result.success) {
-            expect(result.error.issues[0].message).toBe('Must be at least 10 characters');
+            expect(result.error.issues[0].message).toBe('Current Financial Situation must be at least 10 characters');
         }
     });
 

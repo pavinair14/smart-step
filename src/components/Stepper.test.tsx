@@ -3,9 +3,9 @@ import '@testing-library/jest-dom';
 import { Stepper } from './Stepper';
 
 const mockSteps = [
-    { title: 'Step One' },
-    { title: 'Step Two' },
-    { title: 'Step Three' },
+    { title: 'Step One', translationKey: 'step.one' },
+    { title: 'Step Two', translationKey: 'step.two' },
+    { title: 'Step Three', translationKey: 'step.three' },
 ];
 
 describe('Stepper Component', () => {
@@ -40,7 +40,7 @@ describe('Stepper Component', () => {
     });
 
     it('should handle single step', () => {
-        const singleStep = [{ title: 'Only Step' }];
+        const singleStep = [{ title: 'Only Step', translationKey: 'step.only' }];
         render(<Stepper steps={singleStep} currentStep={0} />);
 
         expect(screen.getByText('Only Step')).toBeInTheDocument();

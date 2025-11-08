@@ -1,4 +1,5 @@
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Field } from "../../shared/Field";
 import {
     maritalStatusOptions,
@@ -11,13 +12,14 @@ const FamilyFinancialInfo: React.FC = () => {
         register,
         formState: { errors },
     } = useFormContext();
+    const { t } = useTranslation();
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
             {/* Marital Status */}
             <Field
                 id="maritalStatus"
-                label="Marital Status"
+                label={t('fields.maritalStatus')}
                 as="select"
                 register={register("maritalStatus")}
                 options={maritalStatusOptions}
@@ -27,7 +29,7 @@ const FamilyFinancialInfo: React.FC = () => {
             {/* Dependents */}
             <Field
                 id="dependents"
-                label="Dependents"
+                label={t('fields.dependents')}
                 type="number"
                 register={register("dependents")}
                 error={errors.dependents?.message as string}
@@ -37,7 +39,7 @@ const FamilyFinancialInfo: React.FC = () => {
             {/* Employment Status */}
             <Field
                 id="employmentStatus"
-                label="Employment Status"
+                label={t('fields.employmentStatus')}
                 as="select"
                 register={register("employmentStatus")}
                 options={employmentStatusOptions}
@@ -47,10 +49,10 @@ const FamilyFinancialInfo: React.FC = () => {
             {/* Housing Status */}
             <Field
                 id="housingStatus"
-                label="Housing Status"
+                label={t('fields.housingStatus')}
                 register={register("housingStatus")}
                 error={errors.housingStatus?.message as string}
-                placeholder="Enter your housing status"
+                placeholder={t('placeholders.enterHousingStatus')}
             />
 
             {/* Monthly Income (Currency + Input) */}
@@ -58,7 +60,7 @@ const FamilyFinancialInfo: React.FC = () => {
                 <div className="w-1/3">
                     <Field
                         id="currency"
-                        label="Currency"
+                        label={t('fields.currency')}
                         as="select"
                         register={register("currency")}
                         options={currencies.map((c) => ({
@@ -72,7 +74,7 @@ const FamilyFinancialInfo: React.FC = () => {
                 <div className="flex-1">
                     <Field
                         id="monthlyIncome"
-                        label="Monthly Income"
+                        label={t('fields.monthlyIncome')}
                         type="number"
                         register={register("monthlyIncome")}
                         error={errors.monthlyIncome?.message as string | undefined}

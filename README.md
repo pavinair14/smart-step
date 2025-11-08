@@ -2,7 +2,7 @@
 
 # 🧭 Smart Step — Multi‑Step Form (React + TypeScript)
 
-A progressive, accessible multi-step form built with React, TypeScript, and Vite. It features schema-driven validation (Zod), seamless step navigation, and AI-assisted writing for text areas.
+A progressive, accessible multi-step form built with React, TypeScript, and Vite. It features schema-driven validation (Zod), seamless step navigation, multi-language support (English + Arabic), and AI-assisted writing for text areas.
 
 ---
 
@@ -16,6 +16,8 @@ Run locally (see setup below) and open the printed localhost URL from Vite (typi
 
 - Framework/Build: Vite + React 19 + TypeScript
 - Forms: react-hook-form
+- State Management: Zustand
+- Internationalization: React-i18next
 - Validation: Zod
 - Styling: Tailwind CSS + Shadcn UI
 - Animations: Framer Motion
@@ -30,6 +32,8 @@ Run locally (see setup below) and open the printed localhost URL from Vite (typi
 - ✅ Multi-step flow with per-step validation
 - ✅ Instant validation feedback (onChange)
 - ✅ AI “Help me write” suggestions for descriptions
+- ✅ Multi-language support (English + Arabic)
+- ✅ Persisted state across browser refresh (Zustand)
 - ✅ Persisted, predictable validation using Zod
 - ✅ Accessible dialogs, ARIA labels, and keyboard support
 - ✅ Comprehensive unit tests
@@ -43,8 +47,12 @@ src/
   components/
     MultiStepForm.tsx
     Stepper.tsx
+    LanguageSwitcher.tsx
+    ErrorBoundry.tsx
     shared/
       Field.tsx
+      ErrorField.tsx
+      Loader.tsx
     steps/
       personalInfo/
       familyfinancialInfo/
@@ -54,6 +62,16 @@ src/
     mockSubmitAPI.ts
   lib/
     utils.ts
+  hooks/
+    useAutoFillLocation.ts
+    useDebouncedEffect.ts
+  store/
+    formState.ts
+  i18n/
+    locales/
+      ar.json
+      en.json
+    config.ts
 ```
     
 ## ⚙️ Installation & Setup
@@ -104,6 +122,16 @@ npm run build
 The build output goes to `dist/`.
 
 ---
+
+## 🌐 Internationalization (i18n)
+
+This project uses `react-i18next` + `i18next-browser-languagedetector` for runtime language switching (English / Arabic).
+Smart Step includes React-i18next for multi-language support and seamless right-to-left (RTL) rendering.
+
+### Supported Languages
+
+- 🇺🇸 English (en)
+- 🇦🇪 Arabic (ar)
 
 ## 🧪 Testing Strategy
 

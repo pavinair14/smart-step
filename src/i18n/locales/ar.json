@@ -1,0 +1,101 @@
+﻿{
+    "app": {
+        "title": "الخطوة الذكية",
+        "description": "بوابة دعم اجتماعي تتيح للمواطنين التقدم للحصول على المساعدة المالية بسهولة وسرعة ومع مساعدة ذكية طوال الطريق."
+    },
+    "steps": {
+        "personalInfo": "المعلومات الشخصية",
+        "familyFinancialInfo": "معلومات العائلة والمالية",
+        "situationDescriptions": "وصف الحالة"
+    },
+    "fields": {
+        "name": "الاسم",
+        "nationalId": "الهوية الوطنية",
+        "dateOfBirth": "تاريخ الميلاد",
+        "gender": "الجنس",
+        "address": "العنوان",
+        "city": "المدينة",
+        "state": "الولاية",
+        "country": "البلد",
+        "email": "البريد الإلكتروني",
+        "code": "رمز الدولة",
+        "phone": "الهاتف",
+        "maritalStatus": "الحالة الاجتماعية",
+        "dependents": "المعالين",
+        "employmentStatus": "حالة التوظيف",
+        "housingStatus": "حالة السكن",
+        "currency": "العملة",
+        "monthlyIncome": "الدخل الشهري",
+        "currentFinancialSituation": "الوضع المالي الحالي",
+        "employmentCircumstances": "ظروف التوظيف",
+        "reasonForApplying": "سبب التقديم"
+    },
+    "options": {
+        "male": "ذكر",
+        "female": "أنثى",
+        "other": "آخر",
+        "single": "أعزب",
+        "married": "متزوج",
+        "divorced": "مطلق",
+        "widowed": "أرمل",
+        "employed": "موظف",
+        "selfEmployed": "عمل حر",
+        "unemployed": "عاطل عن العمل",
+        "retired": "متقاعد",
+        "student": "طالب"
+    },
+    "buttons": {
+        "next": "التالي",
+        "back": "السابق",
+        "submit": "إرسال",
+        "ok": "حسناً",
+        "getSuggestion": "ساعدني في الكتابة",
+        "useSuggestion": "قبول",
+        "cancel": "إلغاء",
+        "clearForm": "مسح النموذج",
+        "rewrite": "إعادة كتابة"
+    },
+    "messages": {
+        "allFieldsRequired": "يجب ملء جميع الحقول للمتابعة",
+        "formSubmitted": "تم إرسال النموذج",
+        "formSubmittedSuccess": "تم إرسال النموذج بنجاح.",
+        "aiSuggestion": "اقتراح الذكاء الاصطناعي",
+        "loading": "جاري التفكير...",
+        "error": "خطأ",
+        "skipToMainContent": "الانتقال إلى المحتوى الرئيسي"
+    },
+    "placeholders": {
+        "enterName": "أدخل اسمك الكامل",
+        "enterNationalId": "أدخل رقم هويتك الوطنية",
+        "enterAddress": "أدخل عنوانك الكامل",
+        "enterCity": "أدخل المدينة",
+        "enterState": "أدخل الولاية",
+        "enterCountry": "أدخل البلد",
+        "enterEmail": "أدخل بريدك الإلكتروني",
+        "enterPhone": "أدخل رقم هاتفك",
+        "enterHousingStatus": "مثل: مملوك، مستأجر",
+        "describeFinancialSituation": "صف وضعك المالي الحالي",
+        "describeEmployment": "صف ظروف عملك",
+        "describeReason": "صف سبب تقديمك للطلب"
+    },
+    "aria": {
+        "formProgress": "تقدم النموذج",
+        "stepCompleted": "مكتمل",
+        "stepCurrent": "الحالي",
+        "stepLabel": "الخطوة {{number}}: {{title}} - {{status}}"
+    },
+    "validation": {
+        "required": "{{field}} مطلوب",
+        "minLength": "{{field}} يجب أن يكون على الأقل {{min}} أحرف",
+        "email": "تنسيق البريد الإلكتروني غير صحيح",
+        "alphanumeric": "{{field}} يجب أن يكون أبجديا رقميا",
+        "digitsOnly": "الأرقام فقط مسموح بها",
+        "futureDate": "{{field}} لا يمكن أن يكون في المستقبل",
+        "phoneDigits": "يجب أن يكون الهاتف {{digits}} أرقام للرمز المحدد",
+        "numeric": "{{field}} يجب أن يكون رقميا",
+        "integer": "{{field}} يجب أن يكون رقما صحيحا",
+        "negative": "{{field}} لا يمكن أن يكون سالبا",
+        "positive": "{{field}} يجب أن يكون موجبا",
+        "maxDependents": "الحد الأقصى {{max}} معالين مسموح بهم"
+    }
+}

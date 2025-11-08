@@ -1,0 +1,101 @@
+﻿{
+    "app": {
+        "title": "Smart Step",
+        "description": "A social support portal that allows citizens to apply for financial assistance easily, quickly, and with smart help along the way."
+    },
+    "steps": {
+        "personalInfo": "Personal Information",
+        "familyFinancialInfo": "Family & Financial Info",
+        "situationDescriptions": "Situation Descriptions"
+    },
+    "fields": {
+        "name": "Name",
+        "nationalId": "National ID",
+        "dateOfBirth": "Date of Birth",
+        "gender": "Gender",
+        "address": "Address",
+        "city": "City",
+        "state": "State",
+        "country": "Country",
+        "email": "Email",
+        "code": "Code",
+        "phone": "Phone",
+        "maritalStatus": "Marital Status",
+        "dependents": "Dependents",
+        "employmentStatus": "Employment Status",
+        "housingStatus": "Housing Status",
+        "currency": "Currency",
+        "monthlyIncome": "Monthly Income",
+        "currentFinancialSituation": "Current Financial Situation",
+        "employmentCircumstances": "Employment Circumstances",
+        "reasonForApplying": "Reason for Applying"
+    },
+    "options": {
+        "male": "Male",
+        "female": "Female",
+        "other": "Other",
+        "single": "Single",
+        "married": "Married",
+        "divorced": "Divorced",
+        "widowed": "Widowed",
+        "employed": "Employed",
+        "selfEmployed": "Self-employed",
+        "unemployed": "Unemployed",
+        "retired": "Retired",
+        "student": "Student"
+    },
+    "buttons": {
+        "next": "Next",
+        "back": "Back",
+        "submit": "Submit",
+        "ok": "OK",
+        "getSuggestion": "Help me write",
+        "useSuggestion": "Accept",
+        "cancel": "Cancel",
+        "clearForm": "Clear form",
+        "rewrite": "Rewrite"
+    },
+    "messages": {
+        "allFieldsRequired": "All fields must be filled to proceed",
+        "formSubmitted": "Form Submitted",
+        "formSubmittedSuccess": "Your form has been submitted successfully.",
+        "aiSuggestion": "AI Suggestion",
+        "loading": "Thinking...",
+        "error": "Error",
+        "skipToMainContent": "Skip to main content"
+    },
+    "placeholders": {
+        "enterName": "Enter your full name",
+        "enterNationalId": "Enter your national ID",
+        "enterAddress": "Enter your full address",
+        "enterCity": "Enter your city",
+        "enterState": "Enter your state",
+        "enterCountry": "Enter your country",
+        "enterEmail": "Enter your email",
+        "enterPhone": "Enter your phone number",
+        "enterHousingStatus": "e.g., Owned, Rented",
+        "describeFinancialSituation": "Describe your current financial situation",
+        "describeEmployment": "Describe your employment circumstances",
+        "describeReason": "Describe your reason for applying"
+    },
+    "aria": {
+        "formProgress": "Form progress",
+        "stepCompleted": "Completed",
+        "stepCurrent": "Current",
+        "stepLabel": "Step {{number}}: {{title}} - {{status}}"
+    },
+    "validation": {
+        "required": "{{field}} is required",
+        "minLength": "{{field}} must be at least {{min}} characters",
+        "email": "Invalid email format",
+        "alphanumeric": "{{field}} must be alphanumeric",
+        "digitsOnly": "Only digits allowed",
+        "futureDate": "{{field}} cannot be in the future",
+        "phoneDigits": "Phone must be {{digits}} digits for selected code",
+        "numeric": "{{field}} must be numeric",
+        "integer": "{{field}} must be a whole number",
+        "negative": "{{field}} cannot be negative",
+        "positive": "{{field}} must be positive",
+        "maxDependents": "Maximum {{max}} dependents allowed"
+    }
+}

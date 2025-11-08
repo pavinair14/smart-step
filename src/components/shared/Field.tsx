@@ -56,7 +56,7 @@ export const Field: React.FC<FieldProps> = memo(({
                     <select {...fieldProps}>
                         <option value="">Select</option>
                         {options.map((o) => (
-                            <option key={o.value} value={o.value}>
+                            <option key={o.value} value={o.value} className="text-slate-950">
                                 {o.label}
                             </option>
                         ))}
