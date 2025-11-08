@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { getAISuggestion } from "@/services/aiClient";
 import { useFormContext } from "react-hook-form";
@@ -7,21 +8,22 @@ import SuggestionModal from "./SuggestionModal";
 import { Field } from "@/components/shared/Field";
 import { Sparkle } from "lucide-react";
 
-export const SituationDescription = () => {
+const SituationDescription = () => {
     const { register, setValue, watch, formState: { errors } } = useFormContext();
-
+    const { t } = useTranslation();
     const [activeField, setActiveField] = useState<string | null>(null);
     const [suggestion, setSuggestion] = useState("");
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
 
     /** Handle AI suggestion */
-    const handleAIClick = useCallback(async (field: string, label: string) => {
+    const handleAIClick = useCallback(async (field: string, labelKey: string) => {
         setActiveField(field);
         setLoading(true);
 
         const userText = watch(field);
-        const prompt = `Write a short, realistic, professional description for "${label}". Be concise and avoid lists. Current text: ${userText ? `"${userText}"` : "none"}.`;
+        const translatedLabel = t(labelKey);
+        const prompt = `Write a short, realistic, professional description for "${translatedLabel}". Be concise and avoid lists. Current text: ${userText ? `"${userText}"` : "none"}.`;
 
         try {
             const aiText = await getAISuggestion(prompt);
@@ -32,7 +34,7 @@ export const SituationDescription = () => {
         } finally {
             setLoading(false);
         }
-    }, [watch]);
+    }, [watch, t]);
 
     /** Accept suggestion */
     const handleAccept = useCallback(() => {
@@ -57,12 +59,12 @@ export const SituationDescription = () => {
         } finally {
             setLoading(false);
         }
-    }, [activeField, suggestion]);
+    }, [activeField, suggestion, t]);
 
     return (
         <>
             <div className="space-y-6">
-                {descriptionFields.map(({ id, label }) => {
+                {descriptionFields.map(({ id, translationKey }) => {
                     const isActive = activeField === id;
                     const isLoading = loading && isActive;
 
@@ -70,7 +72,7 @@ export const SituationDescription = () => {
                         <div key={id} className="relative">
                             <Field
                                 id={id}
-                                label={label}
+                                label={t(translationKey)}
                                 as="textarea"
                                 fullWidth
                                 className="pr-41 h-28"
@@ -82,7 +84,7 @@ export const SituationDescription = () => {
                                     type="button"
                                     variant="secondary"
                                     size="sm"
-                                    onClick={() => handleAIClick(id, label)}
+                                    onClick={() => handleAIClick(id, translationKey)}
                                     disabled={isLoading}
                                     aria-busy={isLoading}
                                     className="bg-white text-violet-950 hover:bg-white w-full rounded-md disabled:opacity-100"
@@ -91,7 +93,7 @@ export const SituationDescription = () => {
                                         className={`inline-block text-violet-900 mr-2 ${isLoading ? "animate-spin" : ""}`}
                                         size={16}
                                     />
-                                    {isLoading ? "Thinking..." : "Help me write"}
+                                    {isLoading ? t("messages.loading") : t("buttons.getSuggestion")}
                                 </Button>
                             </div>
                         </div>

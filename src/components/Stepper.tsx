@@ -3,27 +3,35 @@ import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import type { StepperType } from "./types";
+import { useTranslation } from "react-i18next";
 
 export const Stepper: React.FC<StepperType> = memo(({ steps, currentStep }) => {
     const reduceMotion = useReducedMotion();
+    const { t } = useTranslation();
 
     return (
-        <nav aria-label="Form progress">
+        <nav aria-label={t("messages.formProgress") || "Form progress"}>
             <ol
                 className="relative flex justify-between items-center w-full pb-6 pt-2"
                 role="list"
             >
-                {steps.map(({ title }, i) => {
+                {steps.map(({ title, translationKey }, i) => {
                     const isCompleted = i < currentStep;
                     const isActive = i === currentStep;
                     const isLast = i === steps.length - 1;
+                    const translatedTitle = t(translationKey);
+                    const status = isCompleted
+                        ? t("aria.stepCompleted")
+                        : isActive
+                            ? t("aria.stepCurrent")
+                            : "";
 
                     return (
                         <li
                             key={title}
                             className="relative flex flex-col items-center flex-1"
                             aria-current={isActive ? "step" : undefined}
-                            aria-label={`Step ${i + 1}: ${title}${isCompleted ? " - Completed" : isActive ? " - Current" : ""}`}
+                            aria-label={`${t("aria.stepLabel", { number: i + 1, title: translatedTitle, status })}`}
                         >
                             {/* Connector Line */}
                             {!isLast && (
@@ -72,7 +80,7 @@ export const Stepper: React.FC<StepperType> = memo(({ steps, currentStep }) => {
                                     isCompleted || isActive ? "text-violet-900" : "text-gray-700"
                                 )}
                             >
-                                {title}
+                                {translatedTitle}
                             </p>
                         </li>
                     );

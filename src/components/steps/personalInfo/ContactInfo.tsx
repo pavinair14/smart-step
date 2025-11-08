@@ -1,11 +1,13 @@
 // src/steps/PersonalInfo/ContactInfo.tsx
 import React, { useMemo } from "react";
 import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Field } from "../../shared/Field";
 import { countryCodes } from "./constants";
 
 export const ContactInfo: React.FC = () => {
     const { register, formState: { errors } } = useFormContext();
+    const { t } = useTranslation();
 
     const countryCodeOptions = useMemo(() =>
         countryCodes.map((c) => ({ label: `${c.label} (${c.code})`, value: c.code })),
@@ -16,7 +18,7 @@ export const ContactInfo: React.FC = () => {
         <>
             <Field
                 id="email"
-                label="Email"
+                label={t('fields.email')}
                 type="email"
                 register={register("email")}
                 error={errors.email?.message as string | undefined}
@@ -26,7 +28,7 @@ export const ContactInfo: React.FC = () => {
                 <div className="w-1/3">
                     <Field
                         id="phoneCode"
-                        label="Code"
+                        label={t('fields.code')}
                         as="select"
                         register={register("phCode")}
                         options={countryCodeOptions}
@@ -37,7 +39,7 @@ export const ContactInfo: React.FC = () => {
                 <div className="flex-1">
                     <Field
                         id="phone"
-                        label="Phone"
+                        label={t('fields.phone')}
                         type="tel"
                         register={register("phone")}
                         error={errors.phone?.message as string | undefined}
