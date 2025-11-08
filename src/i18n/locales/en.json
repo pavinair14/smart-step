@@ -1,4 +1,4 @@
-{
+﻿{
     "app": {
         "title": "Smart Step",
         "description": "A social support portal that allows citizens to apply for financial assistance easily, quickly, and with smart help along the way."
@@ -83,5 +83,19 @@
         "stepCompleted": "Completed",
         "stepCurrent": "Current",
         "stepLabel": "Step {{number}}: {{title}} - {{status}}"
+    },
+    "validation": {
+        "required": "{{field}} is required",
+        "minLength": "{{field}} must be at least {{min}} characters",
+        "email": "Invalid email format",
+        "alphanumeric": "{{field}} must be alphanumeric",
+        "digitsOnly": "Only digits allowed",
+        "futureDate": "{{field}} cannot be in the future",
+        "phoneDigits": "Phone must be {{digits}} digits for selected code",
+        "numeric": "{{field}} must be numeric",
+        "integer": "{{field}} must be a whole number",
+        "negative": "{{field}} cannot be negative",
+        "positive": "{{field}} must be positive",
+        "maxDependents": "Maximum {{max}} dependents allowed"
     }
 }

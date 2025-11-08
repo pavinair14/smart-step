@@ -1,33 +1,36 @@
 import z from "zod";
+import i18next from "i18next";
 import { countryCodes } from "./steps/personalInfo/constants";
 
+const t = (key: string, options?: Record<string, string | number>) => i18next.t(key, options);
+
 // Personal Info Schema
-export const personalInfoSchema = z.object({
+export const getPersonalInfoSchema = () => z.object({
     name: z.string()
-        .min(2, "Name must be at least 2 chars")
-        .nonempty("Name is required"),
+        .min(2, { message: t("validation.minLength", { field: t("fields.name"), min: "2" }) })
+        .nonempty(t("validation.required", { field: t("fields.name") })),
     nationalId: z.string()
-        .regex(/^[A-Za-z0-9\-]+$/, "National ID must be alphanumeric")
-        .nonempty("National ID is required"),
+        .regex(/^[A-Za-z0-9\-]+$/, { message: t("validation.alphanumeric", { field: t("fields.nationalId") }) })
+        .nonempty(t("validation.required", { field: t("fields.nationalId") })),
     dateOfBirth: z.string()
-        .nonempty("Date of birth is required")
+        .nonempty(t("validation.required", { field: t("fields.dateOfBirth") }))
         .refine((date) => {
             const selected = new Date(date);
             const now = new Date();
             return selected <= now;
-        }, "Date of birth cannot be in the future"),
-    gender: z.string().nonempty("Gender is required"),
-    address: z.string().nonempty("Address is required"),
-    city: z.string().nonempty("City is required"),
-    state: z.string().nonempty("State is required"),
-    country: z.string().nonempty("Country is required"),
+        }, t("validation.futureDate", { field: t("fields.dateOfBirth") })),
+    gender: z.string().nonempty(t("validation.required", { field: t("fields.gender") })),
+    address: z.string().nonempty(t("validation.required", { field: t("fields.address") })),
+    city: z.string().nonempty(t("validation.required", { field: t("fields.city") })),
+    state: z.string().nonempty(t("validation.required", { field: t("fields.state") })),
+    country: z.string().nonempty(t("validation.required", { field: t("fields.country") })),
     email: z.string()
-        .email("Invalid email format")
-        .nonempty("Email is required"),
-    phCode: z.string().nonempty("Code is required"),
+        .email({ message: t("validation.email") })
+        .nonempty(t("validation.required", { field: t("fields.email") })),
+    phCode: z.string().nonempty(t("validation.required", { field: t("fields.code") })),
     phone: z.string()
-        .regex(/^[0-9]+$/, "Only digits allowed")
-        .nonempty("Phone number is required"),
+        .regex(/^[0-9]+$/, { message: t("validation.digitsOnly") })
+        .nonempty(t("validation.required", { field: t("fields.phone") })),
 }).superRefine((data, ctx) => {
     const entry = countryCodes.find(c => c.code === data.phCode);
     if (entry && data.phone) {
@@ -35,45 +38,50 @@ export const personalInfoSchema = z.object({
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 path: ["phone"],
-                message: `Phone must be ${entry.digits} digits for selected code`,
+                message: t("validation.phoneDigits", { digits: entry.digits }),
             });
         }
     }
 });
 
 // Family & Financial Info Schema
-export const FamilyFinancialInfoSchema = z.object({
-    maritalStatus: z.string().nonempty("Marital status is required"),
+export const getFamilyFinancialInfoSchema = () => z.object({
+    maritalStatus: z.string().nonempty(t("validation.required", { field: t("fields.maritalStatus") })),
     dependents: z.preprocess(
         (val) => (typeof val === 'number' ? String(val) : val ?? ''),
-        z.string().min(1, "Dependents count is required")
+        z.string().min(1, { message: t("validation.required", { field: t("fields.dependents") }) })
     )
         .transform((val) => Number(val))
-        .refine((val) => !Number.isNaN(val), { message: "Dependents must be numeric" })
-        .refine((val) => Number.isInteger(val), { message: "Dependents must be a whole number" })
-        .refine((val) => val >= 0, { message: "Dependents cannot be negative" })
-        .refine((val) => val <= 10, { message: "Maximum 10 dependents allowed" }),
-    employmentStatus: z.string().nonempty("Employment status is required"),
-    housingStatus: z.string().nonempty("Housing status is required"),
-    currency: z.string().nonempty("Currency is required"),
+        .refine((val) => !Number.isNaN(val), { message: t("validation.numeric", { field: t("fields.dependents") }) })
+        .refine((val) => Number.isInteger(val), { message: t("validation.integer", { field: t("fields.dependents") }) })
+        .refine((val) => val >= 0, { message: t("validation.negative", { field: t("fields.dependents") }) })
+        .refine((val) => val <= 10, { message: t("validation.maxDependents", { max: "10" }) }),
+    employmentStatus: z.string().nonempty(t("validation.required", { field: t("fields.employmentStatus") })),
+    housingStatus: z.string().nonempty(t("validation.required", { field: t("fields.housingStatus") })),
+    currency: z.string().nonempty(t("validation.required", { field: t("fields.currency") })),
     monthlyIncome: z.preprocess(
         (val) => (typeof val === 'number' ? String(val) : val ?? ''),
-        z.string().min(1, "Monthly income is required")
+        z.string().min(1, { message: t("validation.required", { field: t("fields.monthlyIncome") }) })
     )
         .transform((val) => Number(val))
-        .refine((val) => !Number.isNaN(val), { message: "Monthly income must be numeric" })
-        .refine((val) => val >= 0, { message: "Monthly income must be positive" }),
+        .refine((val) => !Number.isNaN(val), { message: t("validation.numeric", { field: t("fields.monthlyIncome") }) })
+        .refine((val) => val >= 0, { message: t("validation.positive", { field: t("fields.monthlyIncome") }) }),
 });
 
 // Situation Description Schema
-export const SituationDescriptionSchema = z.object({
+export const getSituationDescriptionSchema = () => z.object({
     currentFinancialSituation: z.string()
-        .min(10, "Must be at least 10 characters")
-        .nonempty("Current financial situation is required"),
+        .min(10, { message: t("validation.minLength", { field: t("fields.currentFinancialSituation"), min: "10" }) })
+        .nonempty(t("validation.required", { field: t("fields.currentFinancialSituation") })),
     employmentCircumstances: z.string()
-        .min(10, "Must be at least 10 characters")
-        .nonempty("Employment circumstances is required"),
+        .min(10, { message: t("validation.minLength", { field: t("fields.employmentCircumstances"), min: "10" }) })
+        .nonempty(t("validation.required", { field: t("fields.employmentCircumstances") })),
     reasonForApplying: z.string()
-        .min(10, "Must be at least 10 characters")
-        .nonempty("Reason for applying is required"),
+        .min(10, { message: t("validation.minLength", { field: t("fields.reasonForApplying"), min: "10" }) })
+        .nonempty(t("validation.required", { field: t("fields.reasonForApplying") })),
 });
+
+// Will use current language
+export const personalInfoSchema = getPersonalInfoSchema();
+export const FamilyFinancialInfoSchema = getFamilyFinancialInfoSchema();
+export const SituationDescriptionSchema = getSituationDescriptionSchema();

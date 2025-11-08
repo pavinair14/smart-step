@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState, lazy, Suspense } from "react";
+import { useCallback, useMemo, useState, lazy, Suspense, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { steps, defaultFormValues } from "./constant";
@@ -6,7 +6,7 @@ import { Stepper } from "./Stepper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { schemas, type FormDraft } from "./types";
+import { getSchemas, type FormDraft } from "./types";
 import { useFormStore } from "@/store/formStore";
 import { mockSubmitAPI } from "@/services/mockSubmitAPI";
 import { AlertCircle, X } from "lucide-react";
@@ -20,15 +20,22 @@ const SituationDescription = lazy(() => import("./steps/situationDescription"));
 
 export const MultiStepForm = () => {
     const { formdata, activeStep, setActiveStep, setFormData, reset: resetStore } = useFormStore();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [showSubmitModal, setShowSubmitModal] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const currentSchemas = useMemo(() => getSchemas(), [i18n.language]);
+
     const methods = useForm<FormDraft>({
-        resolver: zodResolver(schemas[activeStep]) as any,
+        resolver: zodResolver(currentSchemas[activeStep]) as any,
         mode: "onChange",
         defaultValues: formdata,
     });
+
+    useEffect(() => {
+        methods.clearErrors();
+    }, [i18n.language, activeStep, methods]);
 
     // Debounced formstore - prevents excessive writes
     useDebouncedEffect(
