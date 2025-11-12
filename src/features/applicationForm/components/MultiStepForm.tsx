@@ -13,7 +13,7 @@ import { useDebouncedEffect } from "@/hooks/useDebouncedEffect";
 import PersonalInfo from "../steps/PersonalInfo";
 import { Stepper } from "./Stepper";
 import { getSchemas, type FormDraft } from "@/types/formField";
-import { defaultFormValues, steps } from "@/components/constants/formDefaults";
+import { defaultFormValues, steps } from "@/constants/formDefaults";
 import { LoaderCircle } from "@/components/common/Loader";
 
 

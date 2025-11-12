@@ -2,7 +2,7 @@ import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Field } from "../common/Field";
 import { useMemo } from "react";
-import { countryCodes, genderOptions } from "@/components/constants/personalInfo";
+import { countryCodes, genderOptions } from "@/constants/personalInfo";
 import type { FormField } from "@/types/formField";
 
 

@@ -1,4 +1,4 @@
-import { cityMap } from "@/components/constants/personalInfo";
+import { cityMap } from "@/constants/personalInfo";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 

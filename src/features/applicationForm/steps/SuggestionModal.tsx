@@ -2,9 +2,9 @@ import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button"
 import { DialogHeader, DialogFooter, Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
-import type { SuggestionModalProps } from "./types";
 import { Sparkle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import type { SuggestionModalProps } from "@/types/formField";
 
 export const SuggestionModal: React.FC<SuggestionModalProps> = (props) => {
     const { open, setOpen, loading, suggestion, setSuggestion, handleRewrite, handleAccept } = props;

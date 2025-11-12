@@ -1,4 +1,4 @@
-import { defaultFormValues } from "@/components/constants/formDefaults";
+import { defaultFormValues } from "@/constants/formDefaults";
 import type { FormDraft } from "@/types/formField";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
