@@ -9,4 +9,4 @@ export { Field } from './common/Field';
 export { default as PersonalInfo } from './steps/PersonalInfo';
 export { default as FamilyFinancialInfo } from './steps/FamilyFinancialInfo';
 export { default as SituationDescription } from './steps/SituationDescription';
-export { default as SuggestionModal } from './steps/SuggestionModal';
+export { default as SuggestionModal } from './modals/SuggestionModal';

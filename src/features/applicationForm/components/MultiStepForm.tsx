@@ -15,7 +15,7 @@ import { Stepper } from "./Stepper";
 import { getSchemas, type FormDraft } from "@/types/formField";
 import { defaultFormValues, steps } from "@/constants/formDefaults";
 import { LoaderCircle } from "@/components/common/Loader";
-import { SubmissionSuccessModal } from "./SubmissionSuccessModal";
+import { SubmissionSuccessModal } from "../modals/SubmissionSuccessModal";
 import { generateReferenceId, formatSubmissionDate } from "@/lib/generateReferenceId";
 
 

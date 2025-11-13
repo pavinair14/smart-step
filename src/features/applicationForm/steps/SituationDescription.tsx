@@ -7,7 +7,7 @@ import { useFormContext } from "react-hook-form";
 import { Field } from "@/features/applicationForm/common/Field";
 import { Sparkle } from "lucide-react";
 import { descriptionFields } from "@/constants/situationDescrtiption";
-import SuggestionModal from "@/features/applicationForm/steps/SuggestionModal";
+import SuggestionModal from "@/features/applicationForm/modals/SuggestionModal";
 
 const SituationDescription = () => {
     const { register, setValue, watch, formState: { errors } } = useFormContext();
