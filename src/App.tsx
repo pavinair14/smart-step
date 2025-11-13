@@ -13,7 +13,7 @@ function App() {
           {t('messages.skipToMainContent')}
         </a>
         <LanguageSwitcher />
-        <h1 className="pb-4 z-10 text-violet-900 font-medium">
+        <h1 className="pb-4 z-10 text-violet-900 font-medium sm:!text-5xl !text-4xl">
           {t('app.title')}
         </h1>
 

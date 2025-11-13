@@ -77,7 +77,7 @@ export const Stepper: React.FC<StepperType> = memo(({ steps, currentStep }) => {
                             {/* Step Title */}
                             <p
                                 className={cn(
-                                    "mt-4 text-center text-lg font-semibold",
+                                    "mt-4 text-center text-base sm:text-lg font-semibold",
                                     isCompleted || isActive ? "text-violet-900" : "text-gray-700"
                                 )}
                             >

@@ -29,7 +29,7 @@ export const Field: React.FC<FieldProps> = memo(({
     const handleBlur = useCallback(() => setFocused(false), []);
 
     const baseClass = cn(
-        "w-full bg-transparent border-b border-gray-300 py-2 text-gray-800 focus:outline-none",
+        "w-full bg-transparent border border-gray-300 rounded px-3 py-2 text-gray-800 focus:outline-none",
         "autofill:bg-transparent autofill:shadow-[inset_0_0_0px_1000px_rgb(255,255,255)]",
         "autofill:[-webkit-text-fill-color:rgb(31,41,55)]",
         className
@@ -49,7 +49,7 @@ export const Field: React.FC<FieldProps> = memo(({
 
     return (
         <div className={cn({ "sm:col-span-2": fullWidth }, "relative")}>
-            <label htmlFor={id} className="block text-gray-600 text-base font-medium mb-1">
+            <label htmlFor={id} className="block text-gray-600 text-base font-bold mb-1">
                 {label}
             </label>
 
@@ -69,7 +69,7 @@ export const Field: React.FC<FieldProps> = memo(({
                     <input {...fieldProps} type={type} />
                 )}
 
-                {/* Bottom border */}
+                {/* Animated border overlay on focus */}
                 <motion.div
                     animate={{
                         width: focused ? "100%" : "0%",
