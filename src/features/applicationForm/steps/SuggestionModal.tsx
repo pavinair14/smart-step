@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button"
 import { DialogHeader, DialogFooter, Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { Sparkle } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import type { SuggestionModalProps } from "@/types/formField";
 
 export const SuggestionModal: React.FC<SuggestionModalProps> = (props) => {
@@ -30,30 +29,20 @@ export const SuggestionModal: React.FC<SuggestionModalProps> = (props) => {
                             {t('messages.loading')}
                         </div>
                     ) : (
-                        <AnimatePresence mode="wait">
+                        <>
                             {suggestion ? (
-                                <motion.div
-                                    key={suggestion}
-                                    initial={{ opacity: 0, y: 8 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -8 }}
-                                    transition={{ duration: 0.25, ease: "easeOut" }}
-                                    className="p-3 h-full bg-muted rounded-md text-sm whitespace-pre-wrap"
-                                >
-                                    {suggestion}
-                                </motion.div>
+                                <textarea
+                                    value={suggestion}
+                                    onChange={(e) => setSuggestion(e.target.value)}
+                                    className="w-full p-3 bg-muted rounded-md text-sm resize-none min-h-[120px] focus:outline-none focus:ring-2 focus:ring-violet-500"
+                                    placeholder={t('messages.editSuggestion')}
+                                />
                             ) : (
-                                <motion.p
-                                    key="no-suggestion"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    className="text-muted-foreground italic text-sm"
-                                >
+                                <p className="text-muted-foreground italic text-sm">
                                     {t('messages.noSuggestionYet')}
-                                </motion.p>
+                                </p>
                             )}
-                        </AnimatePresence>
+                        </>
                     )}
                 </div>
 

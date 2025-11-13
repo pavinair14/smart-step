@@ -15,6 +15,8 @@ import { Stepper } from "./Stepper";
 import { getSchemas, type FormDraft } from "@/types/formField";
 import { defaultFormValues, steps } from "@/constants/formDefaults";
 import { LoaderCircle } from "@/components/common/Loader";
+import { SubmissionSuccessModal } from "./SubmissionSuccessModal";
+import { generateReferenceId, formatSubmissionDate } from "@/lib/generateReferenceId";
 
 
 const FamilyFinancialInfo = lazy(() => import("../steps/FamilyFinancialInfo"));
@@ -26,6 +28,8 @@ export const MultiStepForm = () => {
     const [showSubmitModal, setShowSubmitModal] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [referenceId, setReferenceId] = useState("");
+    const [submissionDate, setSubmissionDate] = useState("");
 
     const currentSchemas = useMemo(() => getSchemas(), [i18n.language]);
 
@@ -54,6 +58,8 @@ export const MultiStepForm = () => {
             setIsSubmitting(true);
             try {
                 await mockSubmitAPI();
+                setReferenceId(generateReferenceId());
+                setSubmissionDate(formatSubmissionDate());
                 setShowSubmitModal(true);
             } catch (error) {
                 console.error("Form submission failed:", error);
@@ -149,26 +155,12 @@ export const MultiStepForm = () => {
                 </div >
             </form >
 
-            {showSubmitModal && (
-                <div
-                    className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-                    role="dialog"
-                    aria-modal="true"
-                    aria-labelledby="modal-title"
-                >
-                    <div
-                        id="submit-modal"
-                        className="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm space-y-4"
-                        tabIndex={-1}
-                    >
-                        <h2 id="modal-title" className="text-xl font-semibold">{t('messages.formSubmitted')}</h2>
-                        <p className="text-gray-700">{t('messages.formSubmittedSuccess')}</p>
-                        <div className="flex justify-end">
-                            <Button type="button" onClick={handleFormReset}>{t('buttons.ok')}</Button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            <SubmissionSuccessModal
+                open={showSubmitModal}
+                onClose={handleFormReset}
+                referenceId={referenceId}
+                submissionDate={submissionDate}
+            />
         </FormProvider >
     )
 }

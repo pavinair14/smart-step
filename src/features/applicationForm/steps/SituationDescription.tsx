@@ -71,6 +71,8 @@ const SituationDescription = () => {
                 {descriptionFields.map(({ id, translationKey }) => {
                     const isActive = activeField === id;
                     const isLoading = loading && isActive;
+                    const fieldValue = watch(id) || "";
+                    const showAIButton = fieldValue.length > 10;
 
                     return (
                         <div key={id} className="relative">
@@ -83,23 +85,25 @@ const SituationDescription = () => {
                                 register={register(id)}
                                 error={errors[id]?.message as string | undefined}
                             />
-                            <div className="absolute bottom-3 right-3 p-[2px] rounded-md bg-gradient-to-r from-violet-600 to-teal-400">
-                                <Button
-                                    type="button"
-                                    variant="secondary"
-                                    size="sm"
-                                    onClick={() => handleAIClick(id, translationKey)}
-                                    disabled={isLoading}
-                                    aria-busy={isLoading}
-                                    className="bg-white text-violet-950 hover:bg-white w-full rounded-md disabled:opacity-100"
-                                >
-                                    <Sparkle
-                                        className={`inline-block text-violet-900 mr-2 ${isLoading ? "animate-spin" : ""}`}
-                                        size={16}
-                                    />
-                                    {isLoading ? t("messages.loading") : t("buttons.getSuggestion")}
-                                </Button>
-                            </div>
+                            {showAIButton && (
+                                <div className="absolute bottom-3 right-3 p-[2px] rounded-md bg-gradient-to-r from-violet-600 to-teal-400">
+                                    <Button
+                                        type="button"
+                                        variant="secondary"
+                                        size="sm"
+                                        onClick={() => handleAIClick(id, translationKey)}
+                                        disabled={isLoading}
+                                        aria-busy={isLoading}
+                                        className="bg-white text-violet-950 hover:bg-white w-full rounded-md disabled:opacity-100"
+                                    >
+                                        <Sparkle
+                                            className={`inline-block text-violet-900 mr-2 ${isLoading ? "animate-spin" : ""}`}
+                                            size={16}
+                                        />
+                                        {isLoading ? t("messages.loading") : t("buttons.getSuggestion")}
+                                    </Button>
+                                </div>
+                            )}
                         </div>
                     );
                 })}
