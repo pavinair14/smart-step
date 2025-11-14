@@ -1,7 +1,8 @@
+import { defaultFormValues } from "@/features/applicationForm/constants/formDefaults";
+import type { FormDraft } from "@/types/formField";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { FormDraft } from "@/components/types";
-import { defaultFormValues } from "@/components/constant";
+
 
 type FormStore = {
     formdata: FormDraft;

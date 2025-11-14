@@ -34,11 +34,15 @@ jest.mock('react-i18next', () => ({
                     'buttons.back': 'Back',
                     'buttons.submit': 'Submit',
                     'buttons.ok': 'OK',
+                    'buttons.cancel': 'Close',
                     'buttons.clearForm': 'Clear form',
                     'messages.allFieldsRequired': 'All fields must be filled to proceed',
                     'messages.formSubmitted': 'Form Submitted',
                     'messages.formSubmittedSuccess': 'Your form has been submitted successfully.',
                     'messages.formProgress': 'Form progress',
+                    'submission.title': 'Form Submitted',
+                    'submission.backToHome': 'Back to Home',
+                    'aria.stepLabel': 'Step {{current}} of {{total}}: {{label}}',
                     // Test-specific keys for Stepper tests
                     'step.one': 'Step One',
                     'step.two': 'Step Two',
@@ -54,7 +58,7 @@ jest.mock('react-i18next', () => ({
 
 
 // Mock the AI client
-jest.mock("@/services/aiClient", () => ({
+jest.mock("@/lib/openai/getSuggestion", () => ({
     getAISuggestion: jest.fn().mockResolvedValue("Mocked AI suggestion for testing"),
 }));
 

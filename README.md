@@ -1,8 +1,6 @@
----
+# 🧭 Social Support — Multi‑Step Form (React + TypeScript)
 
-# 🧭 Smart Step — Multi‑Step Form (React + TypeScript)
-
-A progressive, accessible multi-step form built with React, TypeScript, and Vite. It features schema-driven validation (Zod), seamless step navigation, multi-language support (English + Arabic), and AI-assisted writing for text areas.
+Social Support Application is a government service portal prototype that allows citizens to easily apply for financial assistance through a guided, multi-step form. The system collects personal, family, and financial information and uses AI assistance to help users describe their financial situation clearly and effectively. It is designed to be responsive, accessible, and bilingual (English/Arabic) for an inclusive user experience.
 
 ---
 
@@ -44,35 +42,85 @@ Run locally (see setup below) and open the printed localhost URL from Vite (typi
 
 ```bash
 src/
+  App.tsx
+  main.tsx
+  assets/
+    docs/
   components/
-    MultiStepForm.tsx
-    Stepper.tsx
-    LanguageSwitcher.tsx
-    ErrorBoundry.tsx
-    shared/
-      Field.tsx
-      ErrorField.tsx
+    common/
+      ErrorBoundary.tsx
+      LanguageSwitcher.tsx
       Loader.tsx
-    steps/
-      personalInfo/
-      familyfinancialInfo/
-      situationDescription/
-  services/
-    aiClient.ts
-    mockSubmitAPI.ts
-  lib/
-    utils.ts
+    ui/
+      button.test.tsx
+      button.tsx
+      dialog.test.tsx
+      dialog.tsx
+      ErrorField.tsx
+      input.tsx
+      label.tsx
+      progress.test.tsx
+      progress.tsx
+      textarea.tsx
+  constants/
+    familyfinancialInfo.ts
+    formDefaults.ts
+    personalInfo.ts
+    situationDescrtiption.ts
+  features/
+    applicationForm/
+      index.ts
+      common/
+        Field.test.tsx
+        Field.tsx
+      components/
+        MultiStepForm.test.tsx
+        MultiStepForm.tsx
+        Stepper.test.tsx
+        Stepper.tsx
+      modals/
+        SubmissionSuccessModal.tsx
+        SuggestionModal.tsx
+      steps/
+        FamilyFinancialInfo.tsx
+        PersonalInfo.tsx
+        SituationDescription.tsx
   hooks/
     useAutoFillLocation.ts
     useDebouncedEffect.ts
-  store/
-    formState.ts
   i18n/
+    config.ts
+    testInit.ts
     locales/
       ar.json
       en.json
-    config.ts
+  lib/
+    openai/
+      client.ts
+      errors.ts
+      getSuggestion.ts
+      suggestionService.ts
+    utils/
+      cn.ts
+      dateFormat.ts
+      references.ts
+      sanitize.ts
+      textAnalysis.ts
+  schemas/
+    schemas.test.ts
+    validationSchema.ts
+  services/
+    submitApplication.ts
+  store/
+    formStore.ts
+  styles/
+    global.css
+  test/
+    setup.ts
+  types/
+    formField.ts
 ```
+
     
 ## ⚙️ Installation & Setup
 
@@ -82,8 +130,8 @@ src/
 
 ### Clone & Install
 
-git clone https://github.com/pavinair14/smart-step.git
-cd smart-step
+git clone https://github.com/pavinair14/social-support.git
+cd social-support
 npm install
 
 

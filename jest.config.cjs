@@ -40,7 +40,6 @@ module.exports = {
     coveragePathIgnorePatterns: [
         '/node_modules/',
         '/dist/',
-        '<rootDir>/src/services/aiClient.ts',
         '<rootDir>/src/services/__mocks__/',
     ],
 };
