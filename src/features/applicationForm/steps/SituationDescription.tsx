@@ -18,15 +18,13 @@ const SituationDescription = () => {
     const [open, setOpen] = useState(false);
 
     /** Handle AI suggestion */
-    const handleAIClick = useCallback(async (field: string, labelKey: string) => {
+    const handleAIClick = useCallback(async (field: string) => {
         setActiveField(field);
         setLoading(true);
 
         const userText = watch(field);
-        const translatedLabel = t(labelKey);
         const prompt = t('ai.prompts.suggestion', {
-            label: translatedLabel,
-            userText: userText ? `"${userText}"` : t('ai.none')
+            text: userText && String(userText).trim().length > 0 ? String(userText) : t('ai.none')
         });
 
         try {
@@ -91,7 +89,7 @@ const SituationDescription = () => {
                                         type="button"
                                         variant="secondary"
                                         size="sm"
-                                        onClick={() => handleAIClick(id, translationKey)}
+                                        onClick={() => handleAIClick(id)}
                                         disabled={isLoading}
                                         aria-busy={isLoading}
                                         className="bg-white text-violet-950 hover:bg-white w-full rounded-md disabled:opacity-100"

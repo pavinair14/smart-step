@@ -167,7 +167,7 @@
     "ai": {
         "none": "none",
         "prompts": {
-            "suggestion": "Write a short, realistic, professional description for \"{{label}}\". Be concise and avoid lists. Current text: {{userText}}.",
+            "suggestion": "Rewrite the following text into a concise, realistic, professional version. No lists, no markdown: \"{{text}}\"",
             "rewrite": "Rewrite this text to an alternative concise professional version. Keep it realistic, plain text, no lists: \"{{text}}\""
         }
     },
