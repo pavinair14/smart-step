@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 
 import { Field } from "@/features/applicationForm/common/Field";
 import { Sparkle } from "lucide-react";
-import { descriptionFields } from "@/features/applicationForm/constants/situationDescrtiption";
+import { descriptionFields } from "@/features/applicationForm/constants/situationDescription";
 import SuggestionModal from "@/features/applicationForm/modals/SuggestionModal";
 
 const SituationDescription = () => {
@@ -86,18 +86,18 @@ const SituationDescription = () => {
                             />
 
                             {allowAI && (
-                                <div className="absolute bottom-3 right-3">
+                                <div className="absolute bottom-3 right-3 p-[2px] rounded-md bg-gradient-to-r from-violet-600 to-teal-400">
                                     <Button
                                         type="button"
                                         size="sm"
                                         variant="secondary"
-                                        className="bg-white text-violet-950 rounded-md"
+                                        className="bg-white text-violet-950 hover:bg-white w-full rounded-md disabled:opacity-100"
                                         disabled={aiLoading}
                                         onClick={() => handleAIClick(id)}
                                     >
                                         <Sparkle
                                             size={16}
-                                            className={`mr-2 ${aiLoading ? "animate-spin" : ""}`}
+                                            className={`inline-block text-violet-900 mr-2 ${aiLoading ? "animate-spin" : ""}`}
                                         />
                                         {aiLoading ? t("messages.loading") : t("buttons.getSuggestion")}
                                     </Button>
