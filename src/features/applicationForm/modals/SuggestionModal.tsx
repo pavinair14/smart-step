@@ -9,7 +9,7 @@ import {
     DialogTitle
 } from "@/components/ui/dialog";
 import { Sparkle } from "lucide-react";
-import type { SuggestionModalProps } from "@/types/formField";
+import type { SuggestionModalProps } from "@/features/applicationForm/types/formField";
 
 export const SuggestionModal: React.FC<SuggestionModalProps> = ({
     open,

@@ -1,5 +1,5 @@
 import { defaultFormValues } from "@/features/applicationForm/constants/formDefaults";
-import type { FormDraft } from "@/types/formField";
+import type { FormDraft } from "@/features/applicationForm/types/formField";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

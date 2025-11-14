@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { useFormContext } from "react-hook-form";
-import { Field } from "@/features/applicationForm/common/Field";
+import { Field } from "@/components/common/Field";
 import { Sparkle } from "lucide-react";
 import { descriptionFields } from "../constants/situationDescription";
 import SuggestionModal from "@/features/applicationForm/modals/SuggestionModal";

@@ -8,23 +8,23 @@ import { cn } from "@/utils/cn";
 
 import { useFormStore } from "@/store/formStore";
 import { mockSubmitAPI } from "@/features/applicationForm/services/submitApplication";
-import { getSchemas, type FormDraft } from "@/types/formField";
+import { getSchemas, type FormDraft } from "@/features/applicationForm/types/formField";
 
 import { defaultFormValues, steps } from "@/features/applicationForm/constants/formDefaults";
 import { useDebouncedEffect } from "@/hooks/useDebouncedEffect";
 
-import PersonalInfo from "../steps/PersonalInfo";
+import PersonalInfo from "./steps/PersonalInfo";
 import { Stepper } from "./Stepper";
 import { LoaderCircle } from "@/components/common/Loader";
-import { SubmissionSuccessModal } from "../modals/SubmissionSuccessModal";
+import { SubmissionSuccessModal } from "./modals/SubmissionSuccessModal";
 
 import { generateReferenceId } from "@/utils/references";
 import { formatSubmissionDate } from "@/utils/dateFormat";
 
 import { AlertCircle, X } from "lucide-react";
 
-const FamilyFinancialInfo = lazy(() => import("../steps/FamilyFinancialInfo"));
-const SituationDescription = lazy(() => import("../steps/SituationDescription"));
+const FamilyFinancialInfo = lazy(() => import("./steps/FamilyFinancialInfo"));
+const SituationDescription = lazy(() => import("./steps/SituationDescription"));
 
 export const MultiStepForm = () => {
     const { formdata, activeStep, setActiveStep, setFormData, reset: resetStore } = useFormStore();

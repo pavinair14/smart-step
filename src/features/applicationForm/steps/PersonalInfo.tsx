@@ -1,8 +1,8 @@
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Field } from "../common/Field";
+import { Field } from "@/components/common/Field";
 import { useAutoFillLocation } from "@/hooks/useAutoFillLocation";
-import type { FormField } from "@/types/formField";
+import type { FormField } from "@/features/applicationForm/types/formField";
 
 const PersonalInfo: React.FC = () => {
     const { register, formState: { errors } } = useFormContext();
@@ -35,7 +35,7 @@ const PersonalInfo: React.FC = () => {
         { id: "city", label: t("fields.city"), as: "select", options: citySelectOptions },
     ];
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-12 gap-y-4 w-full max-w-full min-w-0">
             {fields.map(({ id, label, type, as, options, fullWidth }) => (
                 <Field
                     key={id}
