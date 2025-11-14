@@ -280,7 +280,7 @@ describe('Family & Financial Info Schema', () => {
         const result = FamilyFinancialInfoSchema.safeParse(invalidData);
         expect(result.success).toBe(false);
         if (!result.success) {
-            expect(result.error.issues[0].message).toBe('fields.monthlyIncome must be positive');
+            expect(result.error.issues[0].message).toBe('Monthly Income must be positive');
         }
     });
 
@@ -314,7 +314,7 @@ describe('Family & Financial Info Schema', () => {
         const result = FamilyFinancialInfoSchema.safeParse(invalidData);
         expect(result.success).toBe(false);
         if (!result.success) {
-            expect(result.error.issues[0].message).toBe('fields.monthlyIncome is required');
+            expect(result.error.issues[0].message).toBe('Monthly Income is required');
         }
     });
 });

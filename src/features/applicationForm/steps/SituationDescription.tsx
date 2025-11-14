@@ -24,7 +24,7 @@ const SituationDescription = () => {
 
         try {
             const userText = String(watch(fieldId) || "").trim();
-            const result = await getContextualSuggestion(userText, context);
+            const result = await getContextualSuggestion(userText, context, t);
 
             setSuggestion(result.content);
             setOpen(true);
@@ -33,7 +33,7 @@ const SituationDescription = () => {
         } finally {
             setLoading(false);
         }
-    }, [watch]);
+    }, [watch, t]);
 
     /** Accept suggestion */
     const handleAccept = useCallback(() => {
@@ -52,7 +52,7 @@ const SituationDescription = () => {
         try {
             // Get field context
             const fieldContext = descriptionFields.find(f => f.id === activeField)?.context ?? "";
-            const result = await getRewrittenSuggestion(suggestion, fieldContext);
+            const result = await getRewrittenSuggestion(suggestion, fieldContext, t);
 
             setSuggestion(result.content);
         } catch (err) {
@@ -60,7 +60,7 @@ const SituationDescription = () => {
         } finally {
             setLoading(false);
         }
-    }, [activeField, suggestion]);
+    }, [activeField, suggestion, t]);
 
     return (
         <>

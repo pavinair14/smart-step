@@ -34,7 +34,6 @@ const PersonalInfo: React.FC = () => {
         { id: "state", label: t("fields.state"), as: "select", options: stateSelectOptions },
         { id: "city", label: t("fields.city"), as: "select", options: citySelectOptions },
     ];
-    throw new Error("Method not implemented.");
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-4">
             {fields.map(({ id, label, type, as, options, fullWidth }) => (

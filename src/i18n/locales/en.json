@@ -167,12 +167,46 @@
     },
     "ai": {
         "none": "none",
+        "guidance": {
+            "title": "How can I assist you?",
+            "intro": "I'm here to help you write about {{context}}. You can either:",
+            "option1": "Ask me to write it for you (e.g., \"help me write about my situation\")",
+            "option2": "Provide your information and I'll refine it",
+            "option3": "Leave it blank and I'll generate a sample for you",
+            "question": "What would you like me to do?"
+        },
         "prompts": {
+            "empty": "Generate a clear, professional, and realistic description about {{context}}. Write it as if you're the applicant describing your situation.",
+            "helpRequest": "The user is asking: \"{{text}}\"\n\nGenerate a professional description about {{context}} that answers their request. Write it as the actual content they need, not as a response to their question.",
+            "improveContent": "Improve and refine this text about {{context}}. Make it more professional, clear, and compelling while keeping the core message:\n\n\"{{text}}\"",
+            "generateFresh": "Generate a professional description about {{context}}. Write it as if you're the applicant describing your situation. Make it clear, compelling, and realistic.",
+            "rewriteContent": "Rewrite this text about {{context}} in a different way while keeping it professional and the core message intact:\n\n\"{{text}}\"",
             "suggestion": "Rewrite the following text into a concise, realistic, professional version. No lists, no markdown: \"{{text}}\"",
-            "rewrite": "Rewrite this text to an alternative concise professional version. Keep it realistic, plain text, no lists: \"{{text}}\"",
-            "generateFinancialDescriptionWithWarning": "{{warningMessage}} Please generate a clear, concise description of the user's current financial hardship, including reasons for difficulty, relevant context, and why financial support is needed.",
-            "friendlyAssist": "The user wrote: \"{{text}}\". Please respond politely and conversationally. If the message is unrelated to describing their financial situation, gently guide them back by saying something like: 'I'm here to help you describe your financial situation. How can I assist?' If the message does contain financial information, please refine and improve the text while keeping the original meaning.",
-            "rewriteWithContext": "Rewrite the following text so it clearly describes the user's {{context}}. If the text is irrelevant or conversational, replace it with a simple and neutral description of the user's {{context}} instead. Only return the rewritten text, no explanations.\n\nUser text: \"{{text}}\""
+            "rewrite": "Rewrite this text to an alternative concise professional version. Keep it realistic, plain text, no lists: \"{{text}}\""
+        },
+        "detection": {
+            "greetings": [
+                "hi",
+                "hello",
+                "hey",
+                "hii",
+                "helo",
+                "sup",
+                "yo"
+            ],
+            "chatPhrases": [
+                "how are you",
+                "how r u",
+                "what's up",
+                "whats up",
+                "wassup",
+                "good morning",
+                "good afternoon",
+                "good evening",
+                "how's it going",
+                "how is it going",
+                "how you doing"
+            ]
         }
     },
     "language": {
