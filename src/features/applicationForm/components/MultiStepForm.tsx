@@ -4,10 +4,10 @@ import { useTranslation } from "react-i18next";
 ;
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 
 import { useFormStore } from "@/store/formStore";
-import { mockSubmitAPI } from "@/services/mockSubmitAPI";
+import { mockSubmitAPI } from "@/services/submitApplication";
 import { AlertCircle, X } from "lucide-react";
 import { useDebouncedEffect } from "@/hooks/useDebouncedEffect";
 import PersonalInfo from "../steps/PersonalInfo";
@@ -16,7 +16,8 @@ import { getSchemas, type FormDraft } from "@/types/formField";
 import { defaultFormValues, steps } from "@/constants/formDefaults";
 import { LoaderCircle } from "@/components/common/Loader";
 import { SubmissionSuccessModal } from "../modals/SubmissionSuccessModal";
-import { generateReferenceId, formatSubmissionDate } from "@/lib/generateReferenceId";
+import { generateReferenceId } from "@/lib/utils/references";
+import { formatSubmissionDate } from "@/lib/utils/dateFormat";
 
 
 const FamilyFinancialInfo = lazy(() => import("../steps/FamilyFinancialInfo"));

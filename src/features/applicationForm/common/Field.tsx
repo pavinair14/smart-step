@@ -1,7 +1,7 @@
 import { useState, useCallback, memo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ErrorField } from "../../../components/ui/ErrorField";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 import { useAutoFillLocation } from "@/hooks/useAutoFillLocation";
 import type { FieldProps } from "@/types/formField";
 import { useTranslation } from "react-i18next";

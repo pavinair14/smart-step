@@ -1,84 +1,77 @@
-import { cityOptions, stateOptions } from "@/constants/personalInfo";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
-
-
+import { cityOptions, stateOptions } from "@/constants/personalInfo";
 
 //  Automatically handles cascading location field updates
 export const useAutoFillLocation = () => {
     const { watch, setValue, getValues } = useFormContext();
-    const lastChangeRef = useRef<{ field: string; value: string }>({ field: "", value: "" });
+
+    const lastUpdate = useRef({ field: "", value: "" });
+
+    const cities = useMemo(() => Object.fromEntries(cityOptions.map(c => [c.value, c])), []);
+    const states = useMemo(() => Object.fromEntries(stateOptions.map(s => [s.value, s])), []);
+
+    // A single helper that updates a field safely
+    const updateField = (field: string, value: string) => {
+        lastUpdate.current = { field, value };
+        setValue(field, value, { shouldDirty: true, shouldValidate: true });
+    };
 
     useEffect(() => {
-        const subscription = watch((value, { name }) => {
+        const subscription = watch((values, { name }) => {
             if (!name || !["city", "state", "country"].includes(name)) return;
 
-            const currentValue = value[name]?.trim() || "";
+            const newValue = values[name] ?? "";
 
-            // Prevent infinite loops by checking if this is a programmatic update we just made
-            if (lastChangeRef.current.field === name && lastChangeRef.current.value === currentValue) {
+            // Prevent infinite loops
+            if (lastUpdate.current.field === name && lastUpdate.current.value === newValue) return;
+
+            //  City changed 
+            if (name === "city") {
+                const city = cities[newValue];
+                if (city) {
+                    updateField("state", city.stateKey);
+                    updateField("country", city.countryKey);
+                }
                 return;
             }
 
-            lastChangeRef.current = { field: name, value: currentValue };
+            // state changed
+            if (name === "state") {
+                const state = states[newValue];
+                if (state) {
+                    if (getValues("country") !== state.countryKey) {
+                        updateField("country", state.countryKey);
+                    }
 
-            // Rule 1: When city is selected, auto-fill country and state
-            if (name === "city" && currentValue) {
-                const selectedCity = cityOptions.find((c) => c.value === currentValue);
-                if (selectedCity) {
-                    const { stateKey, countryKey } = selectedCity;
-                    setValue("state", stateKey, { shouldValidate: true, shouldDirty: true });
-                    setValue("country", countryKey, { shouldValidate: true, shouldDirty: true });
+                    const city = cities[getValues("city")];
+                    if (city && city.stateKey !== newValue) {
+                        updateField("city", "");
+                    }
                 }
+                return;
             }
 
-            // Rule 2: When state is selected manually, auto-fill country and validate city
-            if (name === "state" && currentValue) {
-                const selectedState = stateOptions.find((s) => s.value === currentValue);
-                if (selectedState) {
-                    const { countryKey } = selectedState;
-                    const currentCountry = getValues("country");
+            // country changed
+            if (name === "country") {
+                const country = newValue;
 
-                    // Update country if it doesn't match
-                    if (currentCountry !== countryKey) {
-                        setValue("country", countryKey, { shouldValidate: true, shouldDirty: true });
-                    }
-
-                    // Always check city validity when state is selected
-                    const currentCity = getValues("city");
-                    if (currentCity) {
-                        const cityData = cityOptions.find((c) => c.value === currentCity);
-                        // Clear city if it doesn't belong to this state
-                        if (!cityData || cityData.stateKey !== currentValue) {
-                            setValue("city", "", { shouldValidate: true, shouldDirty: true });
-                        }
-                    }
-                }
-            }
-
-            // Rule 3: When country is selected manually, clear state and city if they don't match
-            if (name === "country" && currentValue) {
-                const currentState = getValues("state");
-                const currentCity = getValues("city");
-
-                // Check if current state belongs to selected country
-                if (currentState) {
-                    const stateData = stateOptions.find((s) => s.value === currentState);
-                    if (stateData && stateData.countryKey !== currentValue) {
-                        setValue("state", "", { shouldValidate: true, shouldDirty: true });
-                    }
+                // Validate state
+                const stateValue = getValues("state");
+                const selectedState = states[stateValue];
+                if (selectedState && selectedState.countryKey !== country) {
+                    updateField("state", "");
                 }
 
-                // Check if current city belongs to selected country
-                if (currentCity) {
-                    const cityData = cityOptions.find((c) => c.value === currentCity);
-                    if (cityData && cityData.countryKey !== currentValue) {
-                        setValue("city", "", { shouldValidate: true, shouldDirty: true });
-                    }
+                // Validate city
+                const cityValue = getValues("city");
+                const selectedCity = cities[cityValue];
+                if (selectedCity && selectedCity.countryKey !== country) {
+                    updateField("city", "");
                 }
             }
         });
 
         return () => subscription.unsubscribe();
-    }, [watch, setValue, getValues]);
+    }, [watch, setValue, getValues, cities, states]);
 };
