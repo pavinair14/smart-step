@@ -28,7 +28,7 @@ function App() {
         <main
           id="main-content"
           role="main"
-          className="z-10 w-full h-full max-w-4xl px-10 py-6 bg-white rounded-xl shadow-xl"
+          className="z-10 w-full h-full max-w-4xl px-6 sm:px-10 py-6 bg-white rounded-xl shadow-xl"
         >
           <MultiStepForm />
         </main>

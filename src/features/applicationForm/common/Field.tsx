@@ -34,8 +34,9 @@ export const Field: React.FC<FieldProps> = memo((props) => {
 
     // Base styles for input/select/textarea
     const baseInputClass = cn(
-        "w-full bg-transparent border border-gray-300 rounded px-2 sm:px-3 py-2 text-gray-800 focus:outline-none",
-        "text-sm sm:text-base",
+        "w-full bg-transparent border border-gray-300 rounded py-2 text-gray-800 focus:outline-none",
+        "text-sm sm:text-base leading-tight",
+        error ? (as === "select" ? "pr-10 pl-2 sm:pl-3" : "pr-9 pl-2 sm:pl-3") : "px-2 sm:px-3",
         className
     );
 
@@ -56,7 +57,7 @@ export const Field: React.FC<FieldProps> = memo((props) => {
         switch (as) {
             case "select":
                 return (
-                    <select {...commonProps}>
+                    <select {...commonProps} className={cn(baseInputClass, "h-[38px] sm:h-[42px]")}>
                         <option value="">{t("common.select")}</option>
                         {options.map((o) => (
                             <option key={o.value} value={o.value} className="text-slate-950">
@@ -70,13 +71,13 @@ export const Field: React.FC<FieldProps> = memo((props) => {
                 return <textarea {...commonProps} className={cn(baseInputClass, "resize-none h-20")} />;
 
             default:
-                return <input {...commonProps} type={type} />;
+                return <input {...commonProps} type={type} className={cn(baseInputClass, "h-[38px] sm:h-[42px]")} />;
         }
     };
 
     return (
         <div className={cn("relative", { "sm:col-span-2": fullWidth })}>
-            <label htmlFor={id} className="block text-gray-600 text-base font-bold mb-1">
+            <label htmlFor={id} className="block text-gray-950 text-base font-semibold mb-1">
                 {label}
             </label>
 
