@@ -8,7 +8,7 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen h-full flex flex-col items-center bg-stone-100 pt-8 pb-0 sm:pb-16">
+      <div className="min-h-screen h-full flex flex-col items-center bg-gray-200 pt-8 pb-0 sm:pb-16">
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 bg-white text-slate-800 p-2 rounded shadow"
