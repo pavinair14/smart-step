@@ -29,10 +29,12 @@ const PersonalInfo: React.FC = () => {
                 { label: t("options.other"), value: "other" },
             ],
         },
+
         { id: "address", label: t("fields.address"), fullWidth: true },
-        { id: "country", label: t("fields.country"), as: "select", options: countrySelectOptions },
-        { id: "state", label: t("fields.state"), as: "select", options: stateSelectOptions },
         { id: "city", label: t("fields.city"), as: "select", options: citySelectOptions },
+        { id: "state", label: t("fields.state"), as: "select", options: stateSelectOptions },
+        { id: "country", label: t("fields.country"), as: "select", options: countrySelectOptions },
+
     ];
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-12 gap-y-4 w-full max-w-full min-w-0">
