@@ -3,7 +3,7 @@ import { cn } from "@/utils/cn";
 import { Check } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import type { StepperType } from "@/types/formField";
+import type { StepperType } from "@/features/applicationForm/types/formField";
 
 export const Stepper: React.FC<StepperType> = memo(({ steps, currentStep }) => {
     const reduceMotion = useReducedMotion();

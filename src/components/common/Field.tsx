@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ErrorField } from "@/components/ui/ErrorField";
 import { cn } from "@/utils/cn";
 import { useAutoFillLocation } from "@/hooks/useAutoFillLocation";
-import type { FieldProps } from "@/types/formField";
+import type { FieldProps } from "@/features/applicationForm/types/formField";
 import { useTranslation } from "react-i18next";
 
 export const Field: React.FC<FieldProps> = memo((props) => {

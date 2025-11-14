@@ -45,10 +45,13 @@ src/
   App.tsx
   main.tsx
   assets/
-    docs/
+    images/
+      smart-step-flow.png
   components/
     common/
       ErrorBoundary.tsx
+      Field.test.tsx
+      Field.tsx
       LanguageSwitcher.tsx
       Loader.tsx
     ui/
@@ -62,29 +65,28 @@ src/
       progress.test.tsx
       progress.tsx
       textarea.tsx
-  constants/
-    familyfinancialInfo.ts
-    formDefaults.ts
-    personalInfo.ts
-    situationDescrtiption.ts
   features/
     applicationForm/
-      index.ts
-      common/
-        Field.test.tsx
-        Field.tsx
-      components/
-        MultiStepForm.test.tsx
-        MultiStepForm.tsx
-        Stepper.test.tsx
-        Stepper.tsx
+      MultiStepForm.test.tsx
+      MultiStepForm.tsx
+      Stepper.test.tsx
+      Stepper.tsx
+      constants/
+        familyfinancialInfo.ts
+        formDefaults.ts
+        personalInfo.ts
+        situationDescription.ts
       modals/
         SubmissionSuccessModal.tsx
         SuggestionModal.tsx
+      services/
+        submitApplication.ts
       steps/
         FamilyFinancialInfo.tsx
         PersonalInfo.tsx
         SituationDescription.tsx
+      types/
+        formField.ts
   hooks/
     useAutoFillLocation.ts
     useDebouncedEffect.ts
@@ -100,25 +102,21 @@ src/
       errors.ts
       getSuggestion.ts
       suggestionService.ts
-    utils/
-      cn.ts
-      dateFormat.ts
-      references.ts
-      sanitize.ts
       textAnalysis.ts
   schemas/
     schemas.test.ts
     validationSchema.ts
-  services/
-    submitApplication.ts
   store/
     formStore.ts
   styles/
     global.css
   test/
     setup.ts
-  types/
-    formField.ts
+  utils/
+    cn.ts
+    dateFormat.ts
+    references.ts
+    sanitize.ts
 ```
 
     

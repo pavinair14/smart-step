@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Field } from "../common/Field";
+import { Field } from "@/components/common/Field";
 import { currencies, employmentStatusOptions, maritalStatusOptions, housingStatusOptions } from "@/features/applicationForm/constants/familyfinancialInfo";
 
 
@@ -12,7 +12,7 @@ const FamilyFinancialInfo: React.FC = () => {
     const { t } = useTranslation();
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6 w-full max-w-full min-w-0">
             {/* Marital Status */}
             <Field
                 id="maritalStatus"
