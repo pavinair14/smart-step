@@ -76,7 +76,7 @@ const SituationDescription = () => {
                                 label={t(translationKey)}
                                 as="textarea"
                                 fullWidth
-                                className="pr-41 h-28"
+                                className="!pr-41 !h-28"
                                 register={register(id)}
                                 error={errors[id]?.message as string | undefined}
                             />
@@ -96,7 +96,7 @@ const SituationDescription = () => {
                                             className={`mr-2 text-violet-900 ${loading && activeField === id ? "animate-spin" : ""}`}
                                         />
                                         {loading && activeField === id
-                                            ? t("messages.loading")
+                                            ? t("messages.thinking")
                                             : t("buttons.getSuggestion")}
                                     </Button>
                                 </div>

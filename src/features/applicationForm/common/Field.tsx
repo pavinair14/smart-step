@@ -34,9 +34,8 @@ export const Field: React.FC<FieldProps> = memo((props) => {
 
     // Base styles for input/select/textarea
     const baseInputClass = cn(
-        "w-full bg-transparent border border-gray-300 rounded px-3 py-2 text-gray-800 focus:outline-none",
-        "autofill:bg-transparent autofill:shadow-[inset_0_0_0px_1000px_rgb(255,255,255)]",
-        "autofill:[-webkit-text-fill-color:rgb(31,41,55)]",
+        "w-full bg-transparent border border-gray-300 rounded px-2 sm:px-3 py-2 text-gray-800 focus:outline-none",
+        "text-sm sm:text-base",
         className
     );
 
@@ -97,7 +96,7 @@ export const Field: React.FC<FieldProps> = memo((props) => {
                     )}
                 />
 
-                {error && <ErrorField error={error} fieldId={id} />}
+                {error && <ErrorField error={error} fieldId={id} isSelect={as === "select"} />}
             </div>
         </div>
     );

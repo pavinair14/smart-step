@@ -2,7 +2,7 @@ import { Info } from "lucide-react";
 import { useState, useCallback, memo } from "react";
 import { useTranslation } from "react-i18next";
 
-export const ErrorField: React.FC<{ error: string; fieldId?: string }> = memo(({ error, fieldId }) => {
+export const ErrorField: React.FC<{ error: string; fieldId?: string; isSelect?: boolean }> = memo(({ error, fieldId, isSelect = false }) => {
     const { t } = useTranslation();
     const [showTooltip, setShowTooltip] = useState(false);
 
@@ -13,7 +13,7 @@ export const ErrorField: React.FC<{ error: string; fieldId?: string }> = memo(({
 
     return (
         <div
-            className="absolute right-4 top-2.5 text-red-500 cursor-pointer"
+            className={`absolute top-2.5 text-red-500 cursor-pointer ${isSelect ? 'right-6' : 'right-4'}`}
             onMouseEnter={show}
             onMouseLeave={hide}
             aria-describedby={showTooltip ? errorId : undefined}

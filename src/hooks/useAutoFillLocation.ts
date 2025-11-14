@@ -94,7 +94,7 @@ export const useAutoFillLocation = () => {
     const countryCodeOptions = useMemo(
         () =>
             countryCodes.map((c) => ({
-                label: `${t(`geo.countries.${c.countryKey}`)} (${c.code})`,
+                label: `${t(`geo.countryCodes.${c.countryKey}`)} (${c.code})`,
                 value: c.code,
             })),
         [t]
